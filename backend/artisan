@@ -1,0 +1,32 @@
+#!/usr/bin/env php
+<?php
+
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+
+$input = new ArgvInput();
+$output = new ConsoleOutput();
+
+// Bootstrap Laravel application
+$app = new \Illuminate\Foundation\Application(
+    realpath(__DIR__)
+);
+
+$app->singleton(
+    \Illuminate\Contracts\Http\Kernel::class,
+    \App\Http\Kernel::class
+);
+
+$app->singleton(
+    \Illuminate\Contracts\Console\Kernel::class,
+    \App\Console\Kernel::class
+);
+
+$app->singleton(
+    \Illuminate\Contracts\Debug\ExceptionHandler::class,
+    \App\Exceptions\Handler::class
+);
+
+$kernel = $app->make(\Illuminate\Contracts\Console\Kernel::class);
+
+exit($kernel->handle($input, $output));
