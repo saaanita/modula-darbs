@@ -1,7 +1,7 @@
 <template>
   <v-container class="hero-section text-center">
     <h1 class="hero-title">
-      Organize your events in a cute way 🎀
+      Organize your events in a cute way 
     </h1>
 
     <p class="hero-subtitle">
@@ -10,7 +10,7 @@
 
     <div class="mt-6">
       <v-btn size="large" color="pink" to="/register">
-        Get Started 💖
+        Get Started 
       </v-btn>
 
       <v-btn size="large" variant="outlined" class="ml-4" to="/login">
