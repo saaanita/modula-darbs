@@ -1,102 +1,66 @@
-# Catlendar Laravel Backend
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-A RESTful API backend for the Catlendar event management platform, built with Laravel.
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-## Features
+## About Laravel
 
-- User authentication with Sanctum tokens
-- Event management (CRUD operations)
-- User management
-- CORS support for Vue frontend
-- SQLite database (configurable to MySQL)
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-## Installation
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-### Prerequisites
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-- PHP 8.1+
-- Composer
-- Node.js (for frontend)
+## Learning Laravel
 
-### Setup
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-1. Navigate to the Laravel backend directory:
-```bash
-cd backend
-```
+You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-2. Install dependencies:
-```bash
-composer install
-```
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-3. Copy the environment file:
-```bash
-cp .env.example .env
-```
+## Laravel Sponsors
 
-4. Generate application key:
-```bash
-php artisan key:generate
-```
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-5. Create database:
-```bash
-touch database/database.sqlite
-```
+### Premium Partners
 
-6. Run migrations:
-```bash
-php artisan migrate
-```
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Cubet Techno Labs](https://cubettech.com)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[Many](https://www.many.co.uk)**
+- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
+- **[DevSquad](https://devsquad.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
+- **[OP.GG](https://op.gg)**
+- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
+- **[Lendio](https://lendio.com)**
 
-7. Start the server:
-```bash
-php artisan serve
-```
+## Contributing
 
-The API will be available at `http://localhost:8000/api`
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## API Endpoints
+## Code of Conduct
 
-### Authentication
-- `POST /api/register` - Register a new user
-- `POST /api/login` - Login user
-- `POST /api/logout` - Logout user (requires auth)
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-### Users
-- `GET /api/users` - Get all users
-- `GET /api/users/{id}` - Get user by ID
-- `PUT /api/users/{id}` - Update user
-- `DELETE /api/users/{id}` - Delete user
-- `GET /api/profile` - Get current user profile
+## Security Vulnerabilities
 
-### Events
-- `GET /api/events` - Get all events
-- `POST /api/events` - Create event
-- `GET /api/events/{id}` - Get event by ID
-- `PUT /api/events/{id}` - Update event
-- `DELETE /api/events/{id}` - Delete event
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## Frontend Integration
+## License
 
-The frontend communicates with this API. Make sure to:
-
-1. Update the API base URL in `frontend/src/services/api.js`
-2. The frontend runs on `localhost:5173` and the backend on `localhost:8000`
-3. CORS is configured for the Vue frontend
-
-## Database
-
-The application uses SQLite by default. To switch to MySQL:
-
-1. Update `.env`:
-```
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_DATABASE=catlendar
-DB_USERNAME=root
-DB_PASSWORD=password
-```
-
-2. Run migrations with the new database connection.
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

@@ -1,30 +1,23 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\UserController;
 
-Route::middleware('api')->prefix('api')->group(function () {
-    // Auth routes
-    Route::post('/register', [AuthController::class, 'register'])->name('register');
-    Route::post('/login', [AuthController::class, 'login'])->name('login');
-    Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum')->name('logout');
-    
-    // Protected routes
-    Route::middleware('auth:sanctum')->group(function () {
-        // User routes
-        Route::get('/users', [UserController::class, 'index']);
-        Route::get('/users/{user}', [UserController::class, 'show']);
-        Route::put('/users/{user}', [UserController::class, 'update']);
-        Route::delete('/users/{user}', [UserController::class, 'destroy']);
-        Route::get('/profile', [UserController::class, 'profile']);
-        
-        // Event routes
-        Route::get('/events', [EventController::class, 'index']);
-        Route::post('/events', [EventController::class, 'store']);
-        Route::get('/events/{event}', [EventController::class, 'show']);
-        Route::put('/events/{event}', [EventController::class, 'update']);
-        Route::delete('/events/{event}', [EventController::class, 'destroy']);
-    });
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "api" middleware group. Make something great!
+|
+*/
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+Route::get('/health', function () {
+    return response()->json(['ok' => true]);
 });

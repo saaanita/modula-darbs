@@ -2,20 +2,16 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
-use Illuminate\Contracts\Encryption\Encrypter;
-use Illuminate\Http\Request;
+use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
 
-class EncryptCookies
+class EncryptCookies extends Middleware
 {
-    protected $except = [];
-
-    public function __construct(Encrypter $encrypter)
-    {
-    }
-
-    public function handle(Request $request, Closure $next)
-    {
-        return $next($request);
-    }
+    /**
+     * The names of the cookies that should not be encrypted.
+     *
+     * @var array<int, string>
+     */
+    protected $except = [
+        //
+    ];
 }
