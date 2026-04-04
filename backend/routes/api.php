@@ -28,3 +28,7 @@ Route::get('/events', [EventController::class, 'index']);
 Route::post('/events', [EventController::class, 'store']);
 Route::put('/events/{id}', [EventController::class, 'update']);
 Route::delete('/events/{id}', [EventController::class, 'destroy']);
+
+use App\Http\Controllers\GroupController;
+
+Route::apiResource('groups', GroupController::class);

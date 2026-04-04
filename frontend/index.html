@@ -1,14 +1,57 @@
 <!DOCTYPE html>
-<html lang="lv">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Catlendar</title>
-  </head>
-  <body>
-    <div id="app"></div>
+<html>
+<head>
+    <title>Groups</title>
+</head>
+<body>
 
-    <script type="module" src="/src/main.js"></script>
-  </body>
+<h1>Groups</h1>
+
+<ul id="groups-list"></ul>
+
+<h2>Izveidot group</h2>
+
+<input id="name" placeholder="Nosaukums">
+<input id="description" placeholder="Apraksts">
+<button onclick="createGroup()">Izveidot</button>
+
+<script>
+const API = "http://127.0.0.1:8000/api/groups";
+
+// Dabū visus groups
+async function loadGroups() {
+    const res = await fetch(API);
+    const data = await res.json();
+
+    const list = document.getElementById("groups-list");
+    list.innerHTML = "";
+
+    data.forEach(group => {
+        const li = document.createElement("li");
+        li.textContent = group.name + " - " + (group.description || "");
+        list.appendChild(li);
+    });
+}
+
+// Izveido group
+async function createGroup() {
+    const name = document.getElementById("name").value;
+    const description = document.getElementById("description").value;
+
+    await fetch(API, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name, description })
+    });
+
+    loadGroups();
+}
+
+// sākumā ielādē
+loadGroups();
+</script>
+
+</body>
 </html>
