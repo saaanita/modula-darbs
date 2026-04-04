@@ -1,0 +1,9 @@
+node_modules
+frontend/node_modules
+backend/vendor
+.env
+backend/.env
+backend/storage
+backend/bootstrap/cache
+frontend/dist
+backend/public/build
