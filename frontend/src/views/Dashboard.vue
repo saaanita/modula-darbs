@@ -5,9 +5,27 @@
         <h2 class="logo">Catlendar</h2>
 
         <nav class="sidebar-nav">
-          <button class="nav-item active">Kalendārs</button>
-          <button class="nav-item">Notikumi</button>
-          <button class="nav-item">Iestatījumi</button>
+          <button 
+            class="nav-item" 
+            :class="{ active: activeTab === 'calendar' }"
+            @click="activeTab = 'calendar'"
+          >
+            Kalendārs
+          </button>
+          <button 
+            class="nav-item"
+            :class="{ active: activeTab === 'events' }"
+            @click="activeTab = 'events'"
+          >
+            Notikumi
+          </button>
+          <button 
+            class="nav-item"
+            :class="{ active: activeTab === 'settings' }"
+            @click="activeTab = 'settings'"
+          >
+            Iestatījumi
+          </button>
         </nav>
       </div>
 
@@ -27,7 +45,7 @@
         </div>
       </div>
 
-      <div class="content-grid">
+      <div class="content-grid" v-if="activeTab === 'calendar'">
         <section class="calendar-section">
           <div class="calendar-header">
             <button class="month-btn" @click="prevMonth">←</button>
@@ -112,6 +130,36 @@
           </div>
         </aside>
       </div>
+
+      <div v-if="activeTab === 'events'" class="content-area">
+        <h2>Visi notikumi</h2>
+        <div class="events-list">
+          <div v-if="events.length" class="all-events">
+            <div v-for="event in events" :key="event.id" class="event-card">
+              <div class="event-header">
+                <h3>{{ event.title }}</h3>
+                <div class="event-meta">
+                  <span v-if="event.is_all_day">Visa diena</span>
+                  <span v-else>{{ event.time }}</span>
+                </div>
+              </div>
+              <p v-if="event.description">{{ event.description }}</p>
+              <div class="event-card-actions">
+                <button @click="editEvent(event)">Rediģēt</button>
+                <button class="delete-btn" @click="deleteEvent(event.id)">Dzēst</button>
+              </div>
+            </div>
+          </div>
+          <p v-else class="empty-state">Vēl nav neviena notikuma.</p>
+        </div>
+      </div>
+
+      <div v-if="activeTab === 'settings'" class="content-area">
+        <h2>Iestatījumi</h2>
+        <div class="settings-panel">
+          <p>Iestatījumi paredzēti turpmākai attīstībai.</p>
+        </div>
+      </div>
     </main>
 
     <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
@@ -193,6 +241,7 @@ import { ref, computed, onMounted } from 'vue'
 
 const weekdays = ['P', 'O', 'T', 'C', 'Pk', 'S', 'Sv']
 
+const activeTab = ref('calendar')
 const currentDate = ref(new Date())
 const search = ref('')
 const selectedDay = ref(null)
@@ -858,6 +907,116 @@ function prevMonth() {
 .checkbox-label input {
   width: 16px;
   height: 16px;
+}
+
+.content-area {
+  padding: 24px;
+  background: white;
+  border-radius: 28px;
+  box-shadow: 0 10px 30px rgba(124, 58, 237, 0.06);
+}
+
+.content-area h2 {
+  color: #2d1457;
+  margin-bottom: 24px;
+  font-size: 28px;
+}
+
+.events-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.all-events {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.event-card {
+  background: #fcfbff;
+  border: 1px solid #f0e9ff;
+  border-radius: 16px;
+  padding: 20px;
+  transition: 0.2s ease;
+}
+
+.event-card:hover {
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.08);
+  transform: translateY(-2px);
+}
+
+.event-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.event-header h3 {
+  color: #2d1457;
+  margin: 0;
+}
+
+.event-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.event-meta span {
+  font-size: 12px;
+  color: #7b6e96;
+  background: #ede9fe;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.event-card p {
+  color: #7b6e96;
+  margin: 8px 0 16px 0;
+  line-height: 1.5;
+}
+
+.event-card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.event-card-actions button {
+  flex: 1;
+  border: none;
+  background: #ede9fe;
+  color: #5b21b6;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.event-card-actions button:hover {
+  background: #ddd6fe;
+}
+
+.event-card-actions .delete-btn {
+  background: #ffe4e6;
+  color: #be123c;
+}
+
+.event-card-actions .delete-btn:hover {
+  background: #ffd1d5;
+}
+
+.settings-panel {
+  background: #fcfbff;
+  border: 1px solid #f0e9ff;
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+  color: #7b6e96;
 }
 
 </style>
