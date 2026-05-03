@@ -11,20 +11,21 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $data = $request->validate([
+            'username' => 'required|string|min:3|max:30|unique:users,username',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:4',
-            'role' => 'nullable|string',
             'avatar' => 'nullable|string',
         ]);
 
         $user = User::create([
+            'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role' => $data['role'] ?? 'user',
+            'role' => 'user',
             'avatar' => $data['avatar'] ?? '🐱',
         ]);
 
-        return response()->json($user);
+        return $this->respondWithToken($user);
     }
 
     public function login(Request $request)
@@ -42,6 +43,28 @@ class AuthController extends Controller
             ], 401);
         }
 
-        return response()->json($user);
+        return $this->respondWithToken($user);
+    }
+
+    public function me(Request $request)
+    {
+        return response()->json($request->user());
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()?->delete();
+
+        return response()->json(['message' => 'Lietotājs izrakstīts']);
+    }
+
+    private function respondWithToken(User $user)
+    {
+        $token = $user->createToken('frontend')->plainTextToken;
+
+        return response()->json([
+            'user' => $user,
+            'token' => $token,
+        ]);
     }
 }

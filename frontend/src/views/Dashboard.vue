@@ -2,230 +2,288 @@
   <main :class="['page', { dark: darkMode }]">
     <section class="header">
       <div>
-        <h1>Catlendar</h1>
-        <p>Pievieno, rediģē, meklē un pārvaldi savus notikumus.</p>
+        <h1>Notikumu statistika</h1>
+        <p>Pārskati notikumu kopsavilkumu, filtrus un papildu pārvaldības rīkus.</p>
       </div>
 
       <div class="top-actions">
-        <select v-model="role" @change="persist">
-          <option value="user">Lietotājs</option>
-          <option value="admin">Administrators</option>
-        </select>
-
-      <div>
-          {{ currentUser?.avatar }} {{ currentUser?.email }}
-      </div>
-
-      <button @click="router.push('/calendar')"> Kalendārs </button>
-        <button class="danger" @click="logout"> Iziet</button>
+        <span class="role-badge">{{ roleLabel }}</span>
+        <span class="user-email">{{ currentUser?.username || currentUser?.email }}</span>
+        <button class="secondary" @click="router.push('/calendar')">Atgriezties kalendārā</button>
+        <button class="secondary" @click="toggleDark">
+          {{ darkMode ? 'Gaišais režīms' : 'Tumšais režīms' }}
+        </button>
+        <button class="danger" @click="logout">Iziet</button>
       </div>
     </section>
 
     <section class="stats">
       <div class="card">
-        <strong>{{ events.length }}</strong>
         <span>Visi notikumi</span>
+        <strong>{{ stats.total ?? events.length }}</strong>
       </div>
-
       <div class="card">
-        <strong>{{ todayEvents.length }}</strong>
         <span>Šodien</span>
+        <strong>{{ stats.today ?? 0 }}</strong>
       </div>
-
       <div class="card">
-        <strong>{{ upcomingEvents.length }}</strong>
         <span>Gaidāmie</span>
+        <strong>{{ stats.upcoming ?? 0 }}</strong>
+      </div>
+      <div class="card">
+        <span>Izpildīti</span>
+        <strong>{{ stats.done ?? 0 }}</strong>
       </div>
     </section>
 
-    <section class="form-card">
-      <h2>{{ editingId ? 'Rediģēt notikumu' : 'Pievienot notikumu' }}</h2>
+    <section class="work-grid">
+      <section class="form-card">
+        <h2>{{ editingId ? 'Rediģēt notikumu' : 'Pievienot notikumu' }}</h2>
 
-      <div class="form-grid">
-        <input v-model="form.title" placeholder="Nosaukums" />
-        <input v-model="form.date" type="date" required />
-        <input v-model="form.time" type="time" />
-        <input v-model="form.location" placeholder="Vieta" />
-      </div>
+        <div class="form-grid">
+          <label>
+            Nosaukums
+            <input v-model="form.title" placeholder="Piemēram, konsultācija" />
+          </label>
+          <label>
+            Datums
+            <input v-model="form.date" type="date" />
+          </label>
+          <label>
+            Laiks
+            <input v-model="form.time" type="time" />
+          </label>
+          <label>
+            Vieta
+            <input v-model="form.location" placeholder="Piemēram, Rīga" />
+          </label>
+          <label>
+            Prioritāte
+            <select v-model="form.priority">
+              <option value="low">Zema</option>
+              <option value="medium">Vidēja</option>
+              <option value="high">Augsta</option>
+            </select>
+          </label>
+          <label>
+            Krāsa
+            <input v-model="form.color" type="color" />
+          </label>
+        </div>
 
-      <textarea v-model="form.description" placeholder="Apraksts"></textarea>
+        <label>
+          Apraksts
+          <textarea v-model="form.description" placeholder="Īss notikuma apraksts"></textarea>
+        </label>
 
-      <div class="buttons">
-        <button @click="saveEvent">
-          {{ editingId ? 'Saglabāt' : 'Pievienot' }}
-        </button>
+        <div class="buttons">
+          <button @click="saveEvent">{{ editingId ? 'Saglabāt' : 'Pievienot' }}</button>
+          <button class="secondary" @click="clearForm">Notīrīt</button>
+        </div>
+      </section>
 
-        <button class="secondary" @click="clearForm">
-          Notīrīt
-        </button>
-      </div>
+      <section class="summary-card">
+        <h2>Kopsavilkums</h2>
+        <div class="summary-row">
+          <span>Neizpildīti</span>
+          <strong>{{ stats.open ?? 0 }}</strong>
+        </div>
+        <div class="summary-row">
+          <span>Augsta prioritāte</span>
+          <strong>{{ stats.by_priority?.high ?? 0 }}</strong>
+        </div>
+        <div class="summary-row">
+          <span>Vidēja prioritāte</span>
+          <strong>{{ stats.by_priority?.medium ?? 0 }}</strong>
+        </div>
+        <div class="summary-row">
+          <span>Zema prioritāte</span>
+          <strong>{{ stats.by_priority?.low ?? 0 }}</strong>
+        </div>
+
+        <div v-if="monthStats.length" class="month-list">
+          <h3>Notikumi pa mēnešiem</h3>
+          <div v-for="item in monthStats" :key="item.month" class="month-row">
+            <span>{{ item.month }}</span>
+            <div>
+              <span :style="{ width: `${item.width}%` }"></span>
+            </div>
+            <strong>{{ item.total }}</strong>
+          </div>
+        </div>
+      </section>
     </section>
 
     <section class="tools">
-      <input v-model="search" placeholder="Meklēt pēc nosaukuma vai vietas..." />
-      <input v-model="filterDate" type="date" />
-
-    <select v-model="avatar">
-        <option value="🐱">🐱</option>
-        <option value="😺">😺</option>
-        <option value="😸">😸</option>
-        <option value="😻">😻</option>
-    </select>
-
-      <select v-model="sortOrder">
-        <option value="asc">Tuvākie pirmie</option>
-        <option value="desc">Vēlākie pirmie</option>
+      <input v-model="filters.search" placeholder="Meklēt pēc nosaukuma, vietas, apraksta vai lietotāja" @keyup.enter="fetchEvents" />
+      <input v-model="filters.date_from" type="date" title="No datuma" />
+      <input v-model="filters.date_to" type="date" title="Līdz datumam" />
+      <select v-model="filters.priority">
+        <option value="">Visas prioritātes</option>
+        <option value="high">Augsta</option>
+        <option value="medium">Vidēja</option>
+        <option value="low">Zema</option>
       </select>
-
-      <button
-        v-if="role === 'admin' && filterDate"
-        class="danger"
-        @click="deleteByDate"
-      >
-        Dzēst izvēlēto datumu
-      </button>
+      <select v-model="filters.status">
+        <option value="">Visi statusi</option>
+        <option value="open">Neizpildīti</option>
+        <option value="done">Izpildīti</option>
+      </select>
+      <select v-model="filters.sort_by">
+        <option value="date">Kārtot pēc datuma</option>
+        <option value="time">Kārtot pēc laika</option>
+        <option value="title">Kārtot pēc nosaukuma</option>
+        <option value="priority">Kārtot pēc prioritātes</option>
+        <option value="done">Kārtot pēc statusa</option>
+      </select>
+      <select v-model="filters.sort_dir">
+        <option value="asc">Augoši</option>
+        <option value="desc">Dilstoši</option>
+      </select>
+      <button @click="fetchEvents">Atlasīt</button>
+      <button class="secondary" @click="resetFilters">Notīrīt filtrus</button>
     </section>
 
-    <button @click="toggleDark">
-  {{ darkMode ? 'light' : 'dark' }}
-</button>
+    <section class="view-switch">
+      <button :class="{ active: viewMode === 'list' }" @click="viewMode = 'list'">Saraksts</button>
+      <button :class="{ active: viewMode === 'calendar' }" @click="viewMode = 'calendar'">Mēnesis</button>
+    </section>
+
+    <p v-if="error" class="error">{{ error }}</p>
 
     <section v-if="viewMode === 'list'" class="events">
       <h2>Notikumu saraksts</h2>
-    
-      <p v-if="filteredEvents.length === 0" class="empty">
-      🐱 Te vēl nav neviena notikuma...
-      </p>
 
-      <article
-        v-for="event in filteredEvents"
-        :key="event.id"
-        class="event-card"
-      >
-        <div>
+      <p v-if="events.length === 0" class="empty">Nav atrasts neviens notikums.</p>
+
+      <article v-for="event in events" :key="event.id" class="event-card">
+        <div class="event-color" :style="{ backgroundColor: event.color || '#2563eb' }"></div>
+
+        <div class="event-main">
           <h3>{{ event.title }}</h3>
-
-          <p>
-            Statuss:
-            <strong>{{ event.done ? 'Izdarīts' : 'Neizdarīts' }}</strong>
-          </p>
-
-          <p>
-            📆 {{ formatDate(event.date) }}
-            ⏰ {{ event.time || 'Nav norādīts' }}
-          </p>
-
-          <p v-if="event.location">📍 {{ event.location }}</p>
+          <p>{{ formatDate(event.date) }} {{ event.time || '--:--' }}</p>
+          <p v-if="event.location">Vieta: {{ event.location }}</p>
           <p v-if="event.description">{{ event.description }}</p>
+          <p class="meta">
+            {{ priorityLabels[event.priority] || 'Vidēja prioritāte' }} ·
+            {{ event.done ? 'Izpildīts' : 'Neizpildīts' }}
+            <span v-if="isAdmin && event.user"> · Lietotājs: {{ event.user.username || event.user.email }}</span>
+          </p>
         </div>
 
         <div class="event-actions">
-          <button @click="startEdit(event)">Rediģēt</button>
-          <button @click="toggleDone(event.id)">
-            {{ event.done ? 'Atcelt statusu' : 'Atzīmēt kā izdarītu' }}
+          <button class="secondary" @click="startEdit(event)">Rediģēt</button>
+          <button class="secondary" @click="toggleDone(event)">
+            {{ event.done ? 'Atzīmēt kā neizpildītu' : 'Atzīmēt kā izpildītu' }}
           </button>
           <button class="danger" @click="deleteEvent(event.id)">Dzēst</button>
         </div>
       </article>
     </section>
 
-<section v-else class="calendar-view">
-  <h2>Kalendāra skats</h2>
+    <section v-else class="calendar-view">
+      <h2>Mēneša skats</h2>
 
-  <div class="calendar-month">
-    <div class="calendar-day-name">P</div>
-    <div class="calendar-day-name">O</div>
-    <div class="calendar-day-name">T</div>
-    <div class="calendar-day-name">C</div>
-    <div class="calendar-day-name">P</div>
-    <div class="calendar-day-name">S</div>
-    <div class="calendar-day-name">Sv</div>
+      <div class="calendar-month">
+        <div class="calendar-day-name">P</div>
+        <div class="calendar-day-name">O</div>
+        <div class="calendar-day-name">T</div>
+        <div class="calendar-day-name">C</div>
+        <div class="calendar-day-name">P</div>
+        <div class="calendar-day-name">S</div>
+        <div class="calendar-day-name">Sv</div>
 
-    <div
-      v-for="day in monthDays"
-      :key="day.date"
-      class="calendar-cell"
-    >
-      <strong>{{ day.day }}</strong>
-
-      <div
-        v-for="event in day.events"
-        :key="event.id"
-        class="mini-event"
-      >
-        {{ event.time || '--:--' }} {{ event.title }}
+        <div v-for="day in monthDays" :key="day.date" class="calendar-cell">
+          <strong>{{ day.day }}</strong>
+          <span v-for="event in day.events" :key="event.id" class="mini-event">
+            {{ event.time || '--:--' }} {{ event.title }}
+          </span>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-    <section v-if="role === 'admin' && events.length > 0" class="admin-zone">
+    <section v-if="isAdmin && events.length > 0" class="admin-zone">
       <h2>Administratora panelis</h2>
-
-      <button class="danger" @click="deleteAllEvents">
-        Dzēst visus notikumus
-      </button>
+      <p>Administrators redz notikumus no visiem lietotājiem un var tos pārvaldīt.</p>
+      <button class="danger" @click="deleteAllEvents">Dzēst atlasītos notikumus</button>
     </section>
   </main>
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
+import { auth, clearSession, events as eventsApi, getUser } from '../services/api'
 
 const router = useRouter()
-const currentUser = ref(JSON.parse(localStorage.getItem('catlendar_user') || 'null'))
+const currentUser = ref(getUser())
 
 if (!currentUser.value) {
   router.push('/auth')
 }
 
 const events = ref([])
-const role = ref(currentUser.value?.role || 'user')
-const viewMode = ref('list')
-const search = ref('')
-const filterDate = ref('')
-const sortOrder = ref('asc')
+const stats = ref({})
+const error = ref('')
 const editingId = ref(null)
+const viewMode = ref('list')
 const darkMode = ref(localStorage.getItem('dark') === 'true')
 
-const form = ref({
-  title: '',
-  date: '',
-  time: '',
-  location: '',
-  description: ''
+const filters = ref({
+  search: '',
+  date_from: '',
+  date_to: '',
+  priority: '',
+  status: '',
+  sort_by: 'date',
+  sort_dir: 'asc'
 })
 
-onMounted(() => {
-  fetchEvents()
-})
+const form = ref(defaultForm())
+
+const priorityLabels = {
+  low: 'Zema prioritāte',
+  medium: 'Vidēja prioritāte',
+  high: 'Augsta prioritāte'
+}
+
+const isAdmin = computed(() => currentUser.value?.role === 'admin')
+const roleLabel = computed(() => (isAdmin.value ? 'Administrators' : 'Lietotājs'))
+
+onMounted(fetchEvents)
+
+watch(
+  () => [
+    filters.value.date_from,
+    filters.value.date_to,
+    filters.value.priority,
+    filters.value.status,
+    filters.value.sort_by,
+    filters.value.sort_dir
+  ],
+  fetchEvents
+)
+
+function defaultForm() {
+  return {
+    title: '',
+    date: '',
+    time: '',
+    location: '',
+    description: '',
+    priority: 'medium',
+    color: '#2563eb'
+  }
+}
 
 async function fetchEvents() {
-  const res = await fetch(`http://127.0.0.1:8000/api/events?user_id=${currentUser.value.id}`)
-  events.value = await res.json()
-}
-
-async function createEvent(event) {
-  await fetch('http://127.0.0.1:8000/api/events', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(event)
-  })
-}
-
-async function updateEventApi(id, event) {
-  await fetch(`http://127.0.0.1:8000/api/events/${id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(event)
-  })
-}
-
-async function deleteEventApi(id) {
-  await fetch(`http://127.0.0.1:8000/api/events/${id}`, {
-    method: 'DELETE'
-  })
+  try {
+    error.value = ''
+    events.value = await eventsApi.getAll(filters.value)
+    stats.value = await eventsApi.stats()
+  } catch (err) {
+    handleRequestError(err)
+  }
 }
 
 async function saveEvent() {
@@ -241,23 +299,27 @@ async function saveEvent() {
     return
   }
 
-  if (editingId.value) {
-    await updateEventApi(editingId.value, {
-      ...form.value,
-      title,
-      user_id: currentUser.value.id
-    })
-  } else {
-    await createEvent({
-      ...form.value,
-      title,
-      done: false,
-      user_id: currentUser.value.id
-    })
+  const payload = {
+    ...form.value,
+    title,
+    time: form.value.time || null,
+    location: form.value.location || null,
+    description: form.value.description || null,
+    done: Boolean(form.value.done)
   }
 
-  clearForm()
-  await fetchEvents()
+  try {
+    if (editingId.value) {
+      await eventsApi.update(editingId.value, payload)
+    } else {
+      await eventsApi.create(payload)
+    }
+
+    clearForm()
+    await fetchEvents()
+  } catch (err) {
+    handleRequestError(err)
+  }
 }
 
 function startEdit(event) {
@@ -265,79 +327,74 @@ function startEdit(event) {
   form.value = {
     title: event.title,
     date: event.date,
-    time: event.time,
-    location: event.location,
-    description: event.description
+    time: normalizeTime(event.time),
+    location: event.location || '',
+    description: event.description || '',
+    priority: event.priority || 'medium',
+    color: event.color || '#2563eb',
+    done: Boolean(event.done)
   }
 }
 
 function clearForm() {
   editingId.value = null
-  form.value = {
-    title: '',
-    date: '',
-    time: '',
-    location: '',
-    description: ''
-  }
+  form.value = defaultForm()
 }
 
 async function deleteEvent(id) {
-  await deleteEventApi(id)
-  await fetchEvents()
+  if (!confirm('Vai dzēst šo notikumu?')) return
+
+  try {
+    await eventsApi.delete(id)
+    await fetchEvents()
+  } catch (err) {
+    handleRequestError(err)
+  }
 }
 
-async function toggleDone(id) {
-  const event = events.value.find((event) => event.id === id)
-  if (!event) return
+async function toggleDone(event) {
+  try {
+    await eventsApi.update(event.id, {
+      title: event.title,
+      date: event.date,
+      time: normalizeTime(event.time),
+      location: event.location,
+      description: event.description,
+      priority: event.priority || 'medium',
+      color: event.color || '#2563eb',
+      done: !event.done
+    })
 
-  await updateEventApi(id, {
-    ...event,
-    done: !event.done
-  })
-
-  await fetchEvents()
+    await fetchEvents()
+  } catch (err) {
+    handleRequestError(err)
+  }
 }
 
 async function deleteAllEvents() {
-  if (!confirm('Vai tiešām dzēst visus notikumus?')) return
+  if (!confirm('Vai dzēst visus pašreiz atlasītos notikumus?')) return
 
-  for (const event of events.value) {
-    await deleteEventApi(event.id)
+  try {
+    for (const event of events.value) {
+      await eventsApi.delete(event.id)
+    }
+
+    await fetchEvents()
+  } catch (err) {
+    handleRequestError(err)
   }
-
-  await fetchEvents()
 }
 
-async function deleteByDate() {
-  if (!filterDate.value) return
-
-  if (!confirm(`Vai dzēst visus notikumus datumā ${filterDate.value}?`)) return
-
-  const toDelete = events.value.filter((event) => event.date === filterDate.value)
-
-  for (const event of toDelete) {
-    await deleteEventApi(event.id)
+function resetFilters() {
+  filters.value = {
+    search: '',
+    date_from: '',
+    date_to: '',
+    priority: '',
+    status: '',
+    sort_by: 'date',
+    sort_dir: 'asc'
   }
-
-  await fetchEvents()
-}
-
-function exportData() {
-  const data = JSON.stringify(events.value, null, 2)
-  const blob = new Blob([data], { type: 'application/json' })
-  const url = URL.createObjectURL(blob)
-
-  const link = document.createElement('a')
-  link.href = url
-  link.download = 'events.json'
-  link.click()
-
-  URL.revokeObjectURL(url)
-}
-
-function importData() {
-  alert('Importu pagaidām atstāj kā papildu funkciju. DB jau strādā caur API.')
 }
 
 function formatDate(date) {
@@ -346,87 +403,63 @@ function formatDate(date) {
   return `${day}.${month}.${year}`
 }
 
+function normalizeTime(time) {
+  return time ? String(time).slice(0, 5) : null
+}
+
 function toggleDark() {
   darkMode.value = !darkMode.value
   localStorage.setItem('dark', darkMode.value)
 }
 
-function logout() {
-  localStorage.removeItem('catlendar_user')
+async function logout() {
+  await auth.logout()
   router.push('/auth')
 }
 
-const filteredEvents = computed(() => {
-  let result = [...events.value]
+function handleRequestError(err) {
+  error.value = err.message || 'Darbība neizdevās'
 
-  if (search.value) {
-    const query = search.value.toLowerCase()
-    result = result.filter((event) =>
-      event.title.toLowerCase().includes(query) ||
-      (event.location || '').toLowerCase().includes(query)
-    )
+  if (error.value.includes('Unauthenticated')) {
+    clearSession()
+    router.push('/auth')
   }
+}
 
-  if (filterDate.value) {
-    result = result.filter((event) => event.date === filterDate.value)
-  }
+const monthStats = computed(() => {
+  const values = Object.entries(stats.value.by_month || {}).map(([month, total]) => ({
+    month,
+    total: Number(total)
+  }))
 
-  result.sort((a, b) => {
-    const first = new Date(`${a.date}T${a.time || '00:00'}`)
-    const second = new Date(`${b.date}T${b.time || '00:00'}`)
+  const max = Math.max(...values.map((item) => item.total), 1)
 
-    return sortOrder.value === 'asc'
-      ? first - second
-      : second - first
-  })
-
-  return result
-})
-
-const todayEvents = computed(() => {
-  const today = new Date().toISOString().slice(0, 10)
-  return events.value.filter((event) => event.date === today)
-})
-
-const upcomingEvents = computed(() => {
-  const today = new Date().toISOString().slice(0, 10)
-  return events.value.filter((event) => event.date >= today)
-})
-
-const calendarDays = computed(() => {
-  const grouped = {}
-
-  filteredEvents.value.forEach((event) => {
-    if (!grouped[event.date]) {
-      grouped[event.date] = []
-    }
-
-    grouped[event.date].push(event)
-  })
-
-  return Object.keys(grouped)
-    .sort()
-    .map((date) => ({
-      date,
-      events: grouped[date]
-    }))
+  return values.map((item) => ({
+    ...item,
+    width: Math.max(8, Math.round((item.total / max) * 100))
+  }))
 })
 
 const monthDays = computed(() => {
   const now = new Date()
   const year = now.getFullYear()
   const month = now.getMonth()
+  const firstDay = new Date(year, month, 1)
   const lastDay = new Date(year, month + 1, 0).getDate()
-
+  const offset = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1
   const days = []
+
+  for (let i = 0; i < offset; i++) {
+    days.push({ date: `empty-${i}`, day: '', events: [] })
+  }
 
   for (let day = 1; day <= lastDay; day++) {
     const date = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
 
     days.push({
-      day,
       date,
-      events: filteredEvents.value.filter((event) => event.date === date)
+      day,
+      events: events.value.filter((event) => event.date === date)
     })
   }
 
@@ -438,16 +471,19 @@ const monthDays = computed(() => {
 .page {
   min-height: 100vh;
   width: 100%;
-
   margin: 0;
   padding: 32px;
-
+  box-sizing: border-box;
   font-family: Arial, sans-serif;
-
-  background:
-    linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
-    url('https://i.pinimg.com/1200x/06/5e/4a/065e4a0c4063eda47416995e008babf7.jpg') center / cover no-repeat;
+  background: #f4f7fb;
+  color: #172033;
 }
+
+.dark {
+  background: #111827;
+  color: #f9fafb;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -456,210 +492,309 @@ const monthDays = computed(() => {
   margin-bottom: 24px;
 }
 
-.header h1 {
-  margin-bottom: 8px;
+.header h1,
+h2,
+h3 {
+  margin-top: 0;
 }
 
-.top-actions {
+.top-actions,
+.buttons,
+.event-actions,
+.view-switch {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  align-items: center;
+}
+
+.role-badge,
+.user-email {
+  background: #e8eef9;
+  color: #1f3f75;
+  border-radius: 8px;
+  padding: 9px 11px;
+  font-size: 14px;
 }
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  margin-bottom: 24px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 18px;
 }
 
 .card,
 .form-card,
+.summary-card,
 .event-card,
-.day-card,
-.admin-zone {
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+.admin-zone,
+.calendar-cell,
+.calendar-view {
+  background: #ffffff;
+  border: 1px solid #d9e1ee;
+  border-radius: 8px;
+}
+
+.dark .card,
+.dark .form-card,
+.dark .summary-card,
+.dark .event-card,
+.dark .admin-zone,
+.dark .calendar-cell,
+.dark .calendar-view {
+  background: #1f2937;
+  border-color: #374151;
 }
 
 .card {
-  padding: 20px;
+  padding: 18px;
+}
+
+.card span {
+  display: block;
+  color: #667085;
+  margin-bottom: 8px;
 }
 
 .card strong {
   display: block;
-  font-size: 32px;
+  font-size: 30px;
 }
 
-.card span {
-  color: #667085;
+.work-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 18px;
+  margin-bottom: 18px;
 }
 
 .form-card,
-.admin-zone {
-  padding: 24px;
-  margin-bottom: 24px;
+.summary-card,
+.admin-zone,
+.calendar-view {
+  padding: 22px;
 }
 
 .form-grid,
 .tools {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
+}
+
+label {
+  display: grid;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 input,
 textarea,
 select {
-  padding: 12px;
-  border: 1px solid #d0d5dd;
-  border-radius: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px;
+  border: 1px solid #c8d2e1;
+  border-radius: 8px;
   font-size: 15px;
+  background: white;
 }
 
 textarea {
-  width: 100%;
-  min-height: 90px;
-  margin-top: 12px;
-  box-sizing: border-box;
+  min-height: 88px;
+  margin: 12px 0;
+  resize: vertical;
 }
 
-.buttons {
-  margin-top: 12px;
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-button,
-.file-button {
-  padding: 10px 14px;
+button {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+  --button-bg: #2563eb;
+  --button-ear: #2563eb;
+  padding: 10px 13px;
   border: none;
-  border-radius: 10px;
-  background: #1d4ed8;
+  border-radius: 18px 18px 12px 12px;
+  background: var(--button-bg);
   color: white;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 700;
+  transition: opacity 0.18s ease, background-color 0.18s ease;
 }
 
-button:hover,
-.file-button:hover {
+button::before,
+button::after {
+  content: "";
+  position: absolute;
+  top: -9px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 12px solid var(--button-ear);
+}
+
+button::before {
+  left: 18px;
+  transform: rotate(-14deg);
+}
+
+button::after {
+  right: 18px;
+  transform: rotate(14deg);
+}
+
+button:hover {
   opacity: 0.9;
 }
 
 .secondary {
-  background: #667085;
+  --button-bg: #64748b;
+  --button-ear: #64748b;
 }
 
 .danger {
-  background: #dc2626;
+  --button-bg: #f05261;
+  --button-ear: #f05261;
 }
 
 .tools {
-  margin-bottom: 24px;
+  margin-bottom: 14px;
+}
+
+.view-switch {
+  margin-bottom: 18px;
+}
+
+.view-switch button {
+  --button-bg: #dbeafe;
+  --button-ear: #dbeafe;
+  color: #1e3a8a;
+}
+
+.view-switch button.active {
+  --button-bg: #2563eb;
+  --button-ear: #2563eb;
+  color: white;
+}
+
+.summary-row,
+.month-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.month-list {
+  margin-top: 20px;
+}
+
+.month-row {
+  grid-template-columns: 84px 1fr auto;
+  align-items: center;
+}
+
+.month-row div {
+  height: 8px;
+  border-radius: 8px;
+  background: #e5e7eb;
+  overflow: hidden;
+}
+
+.month-row div span {
+  display: block;
+  height: 100%;
+  background: #2563eb;
+}
+
+.events h2 {
+  margin-bottom: 14px;
 }
 
 .event-card {
-  padding: 18px;
-  margin-bottom: 14px;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 8px 1fr auto;
   gap: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
 }
 
-.event-card h3 {
-  margin-top: 0;
+.event-color {
+  border-radius: 8px;
 }
 
-.event-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  align-items: flex-start;
+.event-main h3 {
+  margin-bottom: 8px;
 }
 
-.empty {
+.event-main p {
+  margin: 5px 0;
+}
+
+.meta,
+.empty,
+.error {
   color: #667085;
 }
 
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-}
-
-.day-card {
-  padding: 18px;
-}
-
-.day-card h3 {
-  margin-top: 0;
-}
-
-.mini-event {
-  background: #eef4ff;
-  padding: 10px;
-  border-radius: 10px;
-  margin-bottom: 8px;
-  display: flex;
-  gap: 8px;
-}
-
-.dark {
-  background: #0f172a !important;
-  color: white !important;
-}
-
-@media (max-width: 800px) {
-  .header,
-  .event-card {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .stats,
-  .form-grid,
-  .tools,
-  .calendar-grid {
-    grid-template-columns: 1fr;
-  }
-
-.event-card {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.event-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-}
+.error {
+  color: #b42318;
+  font-weight: 700;
 }
 
 .calendar-month {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 10px;
+  gap: 8px;
 }
 
 .calendar-day-name {
-  font-weight: bold;
   text-align: center;
-  padding: 10px;
+  font-weight: 700;
+  padding: 8px;
 }
 
 .calendar-cell {
-  min-height: 120px;
-  background: white;
-  border-radius: 14px;
+  min-height: 112px;
   padding: 10px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 
 .mini-event {
-  margin-top: 8px;
-  background: #eef4ff;
-  border-radius: 8px;
+  display: block;
+  margin-top: 7px;
   padding: 6px;
+  border-radius: 8px;
+  background: #e8eef9;
+  color: #172033;
   font-size: 13px;
+}
+
+@media (max-width: 960px) {
+  .header,
+  .event-card {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .stats,
+  .work-grid,
+  .form-grid,
+  .tools,
+  .calendar-month {
+    grid-template-columns: 1fr;
+  }
+
+  .event-card {
+    display: grid;
+  }
 }
 </style>

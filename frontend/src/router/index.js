@@ -18,9 +18,14 @@ const router = createRouter({
 
 router.beforeEach((to) => {
   const user = localStorage.getItem('catlendar_user')
+  const token = localStorage.getItem('catlendar_token')
 
-  if (to.path === '/dashboard' && !user) {
+  if ((to.path === '/dashboard' || to.path === '/calendar') && (!user || !token)) {
     return '/auth'
+  }
+
+  if ((to.path === '/' || to.path === '/auth' || to.path === '/login') && user && token) {
+    return '/calendar'
   }
 })
 

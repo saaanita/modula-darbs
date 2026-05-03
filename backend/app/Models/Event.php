@@ -17,4 +17,13 @@ class Event extends Model
         'done',
         'user_id',
     ];
+
+    protected $casts = [
+        'done' => 'boolean',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

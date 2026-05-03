@@ -1,12 +1,19 @@
 <script setup>
 import { ref } from 'vue'
+import { auth } from '../services/api'
 
 const mode = ref('login')
+const username = ref('')
 const email = ref('')
 const password = ref('')
-const role = ref('user')
+const loading = ref(false)
 
 async function submit() {
+  if (mode.value === 'register' && username.value.trim().length < 3) {
+    alert('Lietotājvārdam jābūt vismaz 3 simboli!')
+    return
+  }
+
   if (!email.value || !password.value) {
     alert('Ievadi e-pastu un paroli!')
     return
@@ -17,36 +24,27 @@ async function submit() {
     return
   }
 
-  const url =
-    mode.value === 'login'
-      ? 'http://127.0.0.1:8000/api/auth/login'
-      : 'http://127.0.0.1:8000/api/auth/register'
-
   try {
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
+    loading.value = true
+
+    if (mode.value === 'login') {
+      await auth.login({
         email: email.value,
-        password: password.value,
-        role: role.value
+        password: password.value
       })
-    })
-
-    const data = await res.json()
-
-    if (!res.ok) {
-      alert(data.message || 'Kļūda!')
-      return
+    } else {
+      await auth.register({
+        username: username.value.trim(),
+        email: email.value,
+        password: password.value
+      })
     }
 
-    localStorage.setItem('catlendar_user', JSON.stringify(data))
-    window.location.href = '/dashboard'
-
-  } catch {
-    alert('Serveris nestrādā!')
+    window.location.href = '/calendar'
+  } catch (error) {
+    alert(error.message || 'Neizdevās pieslēgties serverim!')
+  } finally {
+    loading.value = false
   }
 }
 </script>
@@ -55,36 +53,29 @@ async function submit() {
   <main class="auth-page">
     <form class="auth-card" @submit.prevent="submit">
 
-      <h1>🐱 CATlendar</h1>
-      <p class="cat-quote">Meow your schedule into place.</p>
+      <h1>catlendar</h1>
 
       <div class="tabs">
         <button type="button"
                 :class="{ active: mode === 'login' }"
                 @click="mode = 'login'">
-          Log in
+          Pieslēgties
         </button>
 
         <button type="button"
                 :class="{ active: mode === 'register' }"
                 @click="mode = 'register'">
-          Sign up
+          Reģistrēties
         </button>
       </div>
 
+      <input v-if="mode === 'register'" v-model="username" type="text" placeholder="Lietotājvārds" />
       <input v-model="email" type="email" placeholder="E-pasts" />
       <input v-model="password" type="password" placeholder="Parole" />
 
-      <select v-if="mode === 'register'" v-model="role">
-        <option value="user">Lietotājs</option>
-        <option value="admin">Administrators</option>
-      </select>
-
       <button class="main-btn" type="submit">
-        {{ mode === 'login' ? 'Ienākt' : 'Reģistrēties' }}
+        {{ loading ? 'Lūdzu, uzgaidi...' : mode === 'login' ? 'Ienākt' : 'Reģistrēties' }}
       </button>
-
-      <p class="hint">🐾 Kaķīgi sakārtots kalendārs</p>
 
     </form>
   </main>
@@ -141,19 +132,56 @@ h1 {
 }
 
 .tabs button {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+  --button-ear: #f8fafc;
   flex: 1;
   padding: 13px;
   border: none;
-  border-radius: 14px;
-  background: rgba(226, 232, 240, 0.9);
+  border-radius: 18px 18px 12px 12px;
+  background: rgba(248, 250, 252, 0.92);
   color: #334155;
   cursor: pointer;
   font-weight: bold;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.tabs button::before,
+.tabs button::after,
+.main-btn::before,
+.main-btn::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 13px solid var(--button-ear);
+}
+
+.tabs button::before,
+.main-btn::before {
+  left: 28px;
+  transform: rotate(-14deg);
+}
+
+.tabs button::after,
+.main-btn::after {
+  right: 28px;
+  transform: rotate(14deg);
 }
 
 .tabs .active {
+  --button-ear: #f472b6;
   background: #f472b6;
   color: white;
+}
+
+.tabs button:hover,
+.main-btn:hover {
+  opacity: 0.92;
 }
 
 input,
@@ -169,15 +197,20 @@ select {
 }
 
 .main-btn {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+  --button-ear: #2563eb;
   width: 100%;
   padding: 15px;
   border: none;
-  border-radius: 14px;
-  background: #1d4ed8;
+  border-radius: 20px 20px 14px 14px;
+  background: #2563eb;
   color: white;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
+  transition: opacity 0.18s ease;
 }
 
 .hint {
