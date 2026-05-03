@@ -8,14 +8,13 @@ class Event extends Model
 {
     protected $fillable = [
         'title',
-        'description',
-        'day',
-        'month',
-        'year',
+        'date',
         'time',
-        'is_all_day',
+        'location',
+        'description',
+        'priority',
+        'color',
+        'done',
         'user_id',
-        'group_id',
-        'category_id'
     ];
 }

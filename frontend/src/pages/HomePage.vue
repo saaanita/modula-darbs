@@ -334,7 +334,7 @@ async function loadEvents() {
 }
 
 onMounted(() => {
-  loadEvents()
+  fetchEvents()
 })
 
 function selectDay(day) {

@@ -2,64 +2,54 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Event;
+use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Event::all());
+        return Event::where('user_id', $request->user_id)
+            ->orderBy('date')
+            ->orderBy('time')
+            ->get();
     }
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
+        $data = $request->validate([
+            'title' => 'required|string|min:3|max:255',
+            'date' => 'required|date',
+            'time' => 'nullable',
+            'location' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'day' => 'required|integer|min:1|max:31',
-            'month' => 'required|integer|min:0|max:11',
-            'year' => 'required|integer',
-            'time' => 'nullable|date_format:H:i',
-            'is_all_day' => 'required|boolean',
-            'user_id' => 'nullable|integer',
-            'group_id' => 'nullable|integer',
-            'category_id' => 'nullable|integer',
+            'priority' => 'nullable|string',
+            'color' => 'nullable|string',
+            'done' => 'boolean',
+            'user_id' => 'required|integer',
         ]);
 
-    if ($validated['is_all_day']) {
-        $validated['time'] = null;
-    }
-        
-    $event = Event::create($validated);
-
-        return response()->json($event, 201);
+        return Event::create($data);
     }
 
     public function update(Request $request, $id)
     {
         $event = Event::findOrFail($id);
 
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
+        $data = $request->validate([
+            'title' => 'required|string|min:3|max:255',
+            'date' => 'required|date',
+            'time' => 'nullable',
+            'location' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'day' => 'required|integer|min:1|max:31',
-            'month' => 'required|integer|min:0|max:11',
-            'year' => 'required|integer',
-            'time' => 'nullable|date_format:H:i',
-            'is_all_day' => 'required|boolean',
-            'user_id' => 'nullable|integer',
-            'group_id' => 'nullable|integer',
-            'category_id' => 'nullable|integer',
+            'priority' => 'nullable|string',
+            'color' => 'nullable|string',
+            'done' => 'boolean',
         ]);
-        
-        if ($validated['is_all_day']) {
-            $validated['time'] = null;
-        }
-        
-        $event->update($validated);
 
-        return response()->json($event);
+        $event->update($data);
+
+        return $event;
     }
 
     public function destroy($id)
@@ -67,8 +57,6 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
         $event->delete();
 
-        return response()->json([
-            'message' => 'Notikums izdzēsts'
-        ]);
+        return response()->json(['message' => 'Deleted']);
     }
 }

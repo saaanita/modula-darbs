@@ -1,19 +1,27 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomePage from '../pages/HomePage.vue'
-import LoginPage from '../views/Login.vue'
-import RegisterPage from '../views/Register.vue'
-import DashboardPage from '../views/Dashboard.vue'
+import Auth from '../views/Auth.vue'
+import Dashboard from '../views/Dashboard.vue'
+import Calendar from '../views/Calendar.vue'
 
 const routes = [
-  { path: '/', component: HomePage },
-  { path: '/login', component: LoginPage },
-  { path: '/register', component: RegisterPage },
-  { path: '/dashboard', component: DashboardPage },
+  { path: '/', component: Auth },
+  { path: '/auth', component: Auth },
+  { path: '/login', component: Auth },
+  { path: '/dashboard', component: Dashboard },
+  { path: '/calendar', component: Calendar }
 ]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes
+})
+
+router.beforeEach((to) => {
+  const user = localStorage.getItem('catlendar_user')
+
+  if (to.path === '/dashboard' && !user) {
+    return '/auth'
+  }
 })
 
 export default router
