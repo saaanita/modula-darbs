@@ -35,15 +35,37 @@ Route::middleware('auth:sanctum')->group(function () {
             'group_id' => 'required|integer|exists:groups,id',
         ]);
 
-        return Task::where('group_id', $data['group_id'])->get();
+        return Task::where('group_id', $data['group_id'])
+            ->orderBy('done')
+            ->orderBy('created_at', 'desc')
+            ->get();
     });
 
     Route::post('/tasks', function (Request $request) {
         $data = $request->validate([
             'title' => 'required|string|min:3|max:255',
             'group_id' => 'required|integer|exists:groups,id',
+            'done' => 'boolean',
         ]);
 
         return Task::create($data);
+    });
+
+    Route::put('/tasks/{task}', function (Request $request, Task $task) {
+        $data = $request->validate([
+            'title' => 'required|string|min:3|max:255',
+            'done' => 'boolean',
+            'group_id' => 'required|integer|exists:groups,id',
+        ]);
+
+        $task->update($data);
+
+        return $task;
+    });
+
+    Route::delete('/tasks/{task}', function (Task $task) {
+        $task->delete();
+
+        return response()->json(['message' => 'Uzdevums izdzēsts']);
     });
 });

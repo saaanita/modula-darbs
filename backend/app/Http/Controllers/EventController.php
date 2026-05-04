@@ -18,11 +18,15 @@ class EventController extends Controller
             'date_to' => 'nullable|date',
             'priority' => ['nullable', Rule::in(['low', 'medium', 'high'])],
             'status' => ['nullable', Rule::in(['done', 'open'])],
+            'group_id' => 'nullable|integer|exists:groups,id',
             'sort_by' => ['nullable', Rule::in(['title', 'date', 'time', 'priority', 'done', 'created_at'])],
             'sort_dir' => ['nullable', Rule::in(['asc', 'desc'])],
         ]);
 
-        $query = Event::with('user:id,username,email,role');
+        $query = Event::with([
+            'user:id,username,email,role',
+            'group:id,name,description',
+        ]);
 
         if ($request->user()->role !== 'admin') {
             $query->where('user_id', $request->user()->id);
@@ -35,6 +39,9 @@ class EventController extends Controller
                 $query->where('title', 'like', "%{$search}%")
                     ->orWhere('location', 'like', "%{$search}%")
                     ->orWhere('description', 'like', "%{$search}%")
+                    ->orWhereHas('group', function ($query) use ($search) {
+                        $query->where('name', 'like', "%{$search}%");
+                    })
                     ->orWhereHas('user', function ($query) use ($search) {
                         $query->where('email', 'like', "%{$search}%");
                     });
@@ -57,6 +64,10 @@ class EventController extends Controller
             $query->where('done', $data['status'] === 'done');
         }
 
+        if (!empty($data['group_id'])) {
+            $query->where('group_id', $data['group_id']);
+        }
+
         $sortBy = $data['sort_by'] ?? 'date';
         $sortDir = $data['sort_dir'] ?? 'asc';
 
@@ -77,11 +88,14 @@ class EventController extends Controller
             'priority' => ['nullable', Rule::in(['low', 'medium', 'high'])],
             'color' => 'nullable|string',
             'done' => 'boolean',
+            'group_id' => 'nullable|integer|exists:groups,id',
         ]);
 
         $data['user_id'] = $request->user()->id;
 
-        return Event::create($data);
+        $event = Event::create($data);
+
+        return $event->load(['user:id,username,email,role', 'group:id,name,description']);
     }
 
     public function update(Request $request, $id)
@@ -98,11 +112,12 @@ class EventController extends Controller
             'priority' => ['nullable', Rule::in(['low', 'medium', 'high'])],
             'color' => 'nullable|string',
             'done' => 'boolean',
+            'group_id' => 'nullable|integer|exists:groups,id',
         ]);
 
         $event->update($data);
 
-        return $event;
+        return $event->load(['user:id,username,email,role', 'group:id,name,description']);
     }
 
     public function destroy(Request $request, $id)
@@ -144,6 +159,19 @@ class EventController extends Controller
                 ->groupBy('month')
                 ->orderBy('month')
                 ->pluck('total', 'month'),
+            'by_group' => (clone $query)
+                ->select('group_id', DB::raw('count(*) as total'))
+                ->with('group:id,name')
+                ->groupBy('group_id')
+                ->get()
+                ->map(function ($item) {
+                    return [
+                        'id' => $item->group_id,
+                        'name' => $item->group?->name ?? 'Bez kategorijas',
+                        'total' => (int) $item->total,
+                    ];
+                })
+                ->values(),
         ]);
     }
 

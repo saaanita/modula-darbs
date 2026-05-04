@@ -10,4 +10,14 @@ class Group extends Model
         'name',
         'description',
     ];
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
 }

@@ -37,13 +37,14 @@
     </section>
 
     <section class="work-grid">
-      <section class="form-card">
+      <section ref="formCard" class="form-card">
         <h2>{{ editingId ? 'Rediģēt notikumu' : 'Pievienot notikumu' }}</h2>
+        <p v-if="editingId" class="edit-note">Tiek rediģēts notikums. Pēc izmaiņām nospied Saglabāt.</p>
 
         <div class="form-grid">
           <label>
             Nosaukums
-            <input v-model="form.title" placeholder="Piemēram, konsultācija" />
+            <input ref="titleInput" v-model="form.title" placeholder="Piemēram, konsultācija" />
           </label>
           <label>
             Datums
@@ -66,6 +67,13 @@
             </select>
           </label>
           <label>
+            Kategorija
+            <select v-model="form.group_id">
+              <option value="">Bez kategorijas</option>
+              <option v-for="group in groups" :key="group.id" :value="group.id">{{ group.name }}</option>
+            </select>
+          </label>
+          <label>
             Krāsa
             <input v-model="form.color" type="color" />
           </label>
@@ -78,7 +86,7 @@
 
         <div class="buttons">
           <button @click="saveEvent">{{ editingId ? 'Saglabāt' : 'Pievienot' }}</button>
-          <button class="secondary" @click="clearForm">Notīrīt</button>
+          <button class="secondary" @click="clearForm">{{ editingId ? 'Atcelt' : 'Notīrīt' }}</button>
         </div>
       </section>
 
@@ -111,7 +119,72 @@
             <strong>{{ item.total }}</strong>
           </div>
         </div>
+
+        <div v-if="groupStats.length" class="month-list">
+          <h3>Notikumi pa kategorijām</h3>
+          <div v-for="item in groupStats" :key="item.id ?? 'none'" class="summary-row">
+            <span>{{ item.name }}</span>
+            <strong>{{ item.total }}</strong>
+          </div>
+        </div>
       </section>
+    </section>
+
+    <section class="category-card">
+      <div class="section-heading">
+        <div>
+          <h2>Kategorijas un uzdevumi</h2>
+          <p>Notikumus var piesaistīt kategorijai, un katrai kategorijai var pievienot sagatavošanās uzdevumus.</p>
+        </div>
+      </div>
+
+      <div class="category-grid">
+        <div>
+          <h3>Kategorijas</h3>
+          <div class="inline-form">
+            <input v-model="groupForm.name" placeholder="Piemēram, skola" />
+            <input v-model="groupForm.description" placeholder="Īss apraksts" />
+            <button @click="saveGroup">Pievienot kategoriju</button>
+          </div>
+
+          <div v-if="groups.length" class="group-list">
+            <button
+              v-for="group in groups"
+              :key="group.id"
+              class="group-chip"
+              :class="{ active: String(group.id) === String(selectedGroupId) }"
+              @click="selectedGroupId = String(group.id)"
+            >
+              <span>{{ group.name }}</span>
+              <small>{{ group.events_count ?? 0 }} notikumi</small>
+            </button>
+          </div>
+          <p v-else class="empty">Kategorijas vēl nav pievienotas.</p>
+        </div>
+
+        <div>
+          <h3>{{ selectedGroup ? selectedGroup.name : 'Uzdevumi' }}</h3>
+          <p v-if="!selectedGroup" class="empty">Izvēlies kategoriju, lai redzētu tās uzdevumus.</p>
+
+          <template v-else>
+            <div class="inline-form task-form">
+              <input v-model="taskTitle" placeholder="Jauns uzdevums" @keyup.enter="saveTask" />
+              <button @click="saveTask">Pievienot uzdevumu</button>
+            </div>
+
+            <div v-if="tasks.length" class="task-list">
+              <div v-for="task in tasks" :key="task.id" class="task-row" :class="{ done: task.done }">
+                <label>
+                  <input type="checkbox" :checked="task.done" @change="toggleTask(task)" />
+                  <span>{{ task.title }}</span>
+                </label>
+                <button class="danger" @click="deleteTask(task.id)">Dzēst</button>
+              </div>
+            </div>
+            <p v-else class="empty">Šai kategorijai vēl nav uzdevumu.</p>
+          </template>
+        </div>
+      </div>
     </section>
 
     <section class="tools">
@@ -128,6 +201,10 @@
         <option value="">Visi statusi</option>
         <option value="open">Neizpildīti</option>
         <option value="done">Izpildīti</option>
+      </select>
+      <select v-model="filters.group_id">
+        <option value="">Visas kategorijas</option>
+        <option v-for="group in groups" :key="group.id" :value="group.id">{{ group.name }}</option>
       </select>
       <select v-model="filters.sort_by">
         <option value="date">Kārtot pēc datuma</option>
@@ -167,6 +244,7 @@
           <p class="meta">
             {{ priorityLabels[event.priority] || 'Vidēja prioritāte' }} ·
             {{ event.done ? 'Izpildīts' : 'Neizpildīts' }}
+            <span> · Kategorija: {{ event.group?.name || 'Bez kategorijas' }}</span>
             <span v-if="isAdmin && event.user"> · Lietotājs: {{ event.user.username || event.user.email }}</span>
           </p>
         </div>
@@ -211,9 +289,9 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { auth, clearSession, events as eventsApi, getUser } from '../services/api'
+import { auth, clearSession, events as eventsApi, getUser, groups as groupsApi, tasks as tasksApi } from '../services/api'
 
 const router = useRouter()
 const currentUser = ref(getUser())
@@ -228,6 +306,16 @@ const error = ref('')
 const editingId = ref(null)
 const viewMode = ref('list')
 const darkMode = ref(localStorage.getItem('dark') === 'true')
+const formCard = ref(null)
+const titleInput = ref(null)
+const groups = ref([])
+const tasks = ref([])
+const selectedGroupId = ref('')
+const groupForm = ref({
+  name: '',
+  description: ''
+})
+const taskTitle = ref('')
 
 const filters = ref({
   search: '',
@@ -235,6 +323,7 @@ const filters = ref({
   date_to: '',
   priority: '',
   status: '',
+  group_id: '',
   sort_by: 'date',
   sort_dir: 'asc'
 })
@@ -249,8 +338,11 @@ const priorityLabels = {
 
 const isAdmin = computed(() => currentUser.value?.role === 'admin')
 const roleLabel = computed(() => (isAdmin.value ? 'Administrators' : 'Lietotājs'))
+const selectedGroup = computed(() => groups.value.find((group) => String(group.id) === String(selectedGroupId.value)) || null)
 
-onMounted(fetchEvents)
+onMounted(async () => {
+  await Promise.all([fetchEvents(), fetchGroups()])
+})
 
 watch(
   () => [
@@ -258,11 +350,16 @@ watch(
     filters.value.date_to,
     filters.value.priority,
     filters.value.status,
+    filters.value.group_id,
     filters.value.sort_by,
     filters.value.sort_dir
   ],
   fetchEvents
 )
+
+watch(selectedGroupId, (groupId) => {
+  fetchTasks(groupId)
+})
 
 function defaultForm() {
   return {
@@ -272,7 +369,8 @@ function defaultForm() {
     location: '',
     description: '',
     priority: 'medium',
-    color: '#2563eb'
+    color: '#2563eb',
+    group_id: ''
   }
 }
 
@@ -281,6 +379,105 @@ async function fetchEvents() {
     error.value = ''
     events.value = await eventsApi.getAll(filters.value)
     stats.value = await eventsApi.stats()
+  } catch (err) {
+    handleRequestError(err)
+  }
+}
+
+async function fetchGroups() {
+  try {
+    groups.value = await groupsApi.getAll()
+
+    if (!selectedGroupId.value && groups.value.length > 0) {
+      selectedGroupId.value = String(groups.value[0].id)
+    }
+  } catch (err) {
+    handleRequestError(err)
+  }
+}
+
+async function fetchTasks(groupId = selectedGroupId.value) {
+  if (!groupId) {
+    tasks.value = []
+    return
+  }
+
+  try {
+    tasks.value = await tasksApi.getAll(groupId)
+  } catch (err) {
+    handleRequestError(err)
+  }
+}
+
+async function saveGroup() {
+  const name = groupForm.value.name.trim()
+
+  if (name.length < 3) {
+    alert('Kategorijas nosaukumam jābūt vismaz 3 simboli!')
+    return
+  }
+
+  try {
+    const group = await groupsApi.create({
+      name,
+      description: groupForm.value.description || null
+    })
+
+    groupForm.value = { name: '', description: '' }
+    await fetchGroups()
+    selectedGroupId.value = String(group.id)
+  } catch (err) {
+    handleRequestError(err)
+  }
+}
+
+async function saveTask() {
+  const title = taskTitle.value.trim()
+
+  if (!selectedGroupId.value) {
+    alert('Vispirms izvēlies kategoriju!')
+    return
+  }
+
+  if (title.length < 3) {
+    alert('Uzdevuma nosaukumam jābūt vismaz 3 simboli!')
+    return
+  }
+
+  try {
+    await tasksApi.create({
+      title,
+      group_id: selectedGroupId.value,
+      done: false
+    })
+
+    taskTitle.value = ''
+    await fetchTasks()
+  } catch (err) {
+    handleRequestError(err)
+  }
+}
+
+async function toggleTask(task) {
+  try {
+    await tasksApi.update(task.id, {
+      title: task.title,
+      group_id: task.group_id,
+      done: !task.done
+    })
+
+    await fetchTasks()
+  } catch (err) {
+    handleRequestError(err)
+  }
+}
+
+async function deleteTask(id) {
+  if (!confirm('Vai dzēst šo uzdevumu?')) return
+
+  try {
+    await tasksApi.delete(id)
+    await fetchTasks()
   } catch (err) {
     handleRequestError(err)
   }
@@ -305,6 +502,7 @@ async function saveEvent() {
     time: form.value.time || null,
     location: form.value.location || null,
     description: form.value.description || null,
+    group_id: form.value.group_id || null,
     done: Boolean(form.value.done)
   }
 
@@ -316,13 +514,14 @@ async function saveEvent() {
     }
 
     clearForm()
-    await fetchEvents()
+    await Promise.all([fetchEvents(), fetchGroups()])
   } catch (err) {
     handleRequestError(err)
   }
 }
 
 function startEdit(event) {
+  error.value = ''
   editingId.value = event.id
   form.value = {
     title: event.title,
@@ -332,8 +531,14 @@ function startEdit(event) {
     description: event.description || '',
     priority: event.priority || 'medium',
     color: event.color || '#2563eb',
+    group_id: event.group_id || '',
     done: Boolean(event.done)
   }
+
+  nextTick(() => {
+    formCard.value?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    titleInput.value?.focus()
+  })
 }
 
 function clearForm() {
@@ -346,7 +551,7 @@ async function deleteEvent(id) {
 
   try {
     await eventsApi.delete(id)
-    await fetchEvents()
+    await Promise.all([fetchEvents(), fetchGroups()])
   } catch (err) {
     handleRequestError(err)
   }
@@ -362,6 +567,7 @@ async function toggleDone(event) {
       description: event.description,
       priority: event.priority || 'medium',
       color: event.color || '#2563eb',
+      group_id: event.group_id || null,
       done: !event.done
     })
 
@@ -379,7 +585,7 @@ async function deleteAllEvents() {
       await eventsApi.delete(event.id)
     }
 
-    await fetchEvents()
+    await Promise.all([fetchEvents(), fetchGroups()])
   } catch (err) {
     handleRequestError(err)
   }
@@ -392,6 +598,7 @@ function resetFilters() {
     date_to: '',
     priority: '',
     status: '',
+    group_id: '',
     sort_by: 'date',
     sort_dir: 'asc'
   }
@@ -410,6 +617,7 @@ function normalizeTime(time) {
 function toggleDark() {
   darkMode.value = !darkMode.value
   localStorage.setItem('dark', darkMode.value)
+  window.dispatchEvent(new Event('catlendar-dark-mode'))
 }
 
 async function logout() {
@@ -439,6 +647,8 @@ const monthStats = computed(() => {
     width: Math.max(8, Math.round((item.total / max) * 100))
   }))
 })
+
+const groupStats = computed(() => stats.value.by_group || [])
 
 const monthDays = computed(() => {
   const now = new Date()
@@ -527,6 +737,7 @@ h3 {
 .card,
 .form-card,
 .summary-card,
+.category-card,
 .event-card,
 .admin-zone,
 .calendar-cell,
@@ -539,6 +750,7 @@ h3 {
 .dark .card,
 .dark .form-card,
 .dark .summary-card,
+.dark .category-card,
 .dark .event-card,
 .dark .admin-zone,
 .dark .calendar-cell,
@@ -571,9 +783,122 @@ h3 {
 
 .form-card,
 .summary-card,
+.category-card,
 .admin-zone,
 .calendar-view {
   padding: 22px;
+}
+
+.category-card {
+  margin-bottom: 18px;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.section-heading p {
+  margin: 4px 0 0;
+  color: #667085;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.inline-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.task-form {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.group-list,
+.task-list {
+  display: grid;
+  gap: 8px;
+}
+
+.group-chip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  background: #dce8ef;
+  color: #1e3a46;
+}
+
+.group-chip.active {
+  background: #2f6f73;
+  color: #ffffff;
+}
+
+.group-chip small {
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+.task-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #e4eaf3;
+  border-radius: 8px;
+  background: #fbfdff;
+}
+
+.task-row label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.task-row input {
+  width: auto;
+}
+
+.task-row.done span {
+  color: #667085;
+  text-decoration: line-through;
+}
+
+.dark .section-heading p,
+.dark .task-row.done span {
+  color: #9ca3af;
+}
+
+.dark .group-chip {
+  background: #334155;
+  color: #f8fafc;
+}
+
+.dark .group-chip.active {
+  background: #2f6f73;
+}
+
+.dark .task-row {
+  border-color: #374151;
+  background: #172033;
+}
+
+.edit-note {
+  margin: -4px 0 14px;
+  color: #2f6f73;
+  font-weight: 700;
 }
 
 .form-grid,
@@ -609,15 +934,10 @@ textarea {
 }
 
 button {
-  position: relative;
-  isolation: isolate;
-  overflow: visible;
-  --button-bg: #2563eb;
-  --button-ear: #2563eb;
   padding: 10px 13px;
   border: none;
-  border-radius: 18px 18px 12px 12px;
-  background: var(--button-bg);
+  border-radius: 999px;
+  background: #2f6f73;
   color: white;
   cursor: pointer;
   font-size: 14px;
@@ -625,40 +945,16 @@ button {
   transition: opacity 0.18s ease, background-color 0.18s ease;
 }
 
-button::before,
-button::after {
-  content: "";
-  position: absolute;
-  top: -9px;
-  width: 0;
-  height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 12px solid var(--button-ear);
-}
-
-button::before {
-  left: 18px;
-  transform: rotate(-14deg);
-}
-
-button::after {
-  right: 18px;
-  transform: rotate(14deg);
-}
-
 button:hover {
   opacity: 0.9;
 }
 
 .secondary {
-  --button-bg: #64748b;
-  --button-ear: #64748b;
+  background: #6b7a90;
 }
 
 .danger {
-  --button-bg: #f05261;
-  --button-ear: #f05261;
+  background: #d4515f;
 }
 
 .tools {
@@ -670,14 +966,12 @@ button:hover {
 }
 
 .view-switch button {
-  --button-bg: #dbeafe;
-  --button-ear: #dbeafe;
+  background: #dce8ef;
   color: #1e3a8a;
 }
 
 .view-switch button.active {
-  --button-bg: #2563eb;
-  --button-ear: #2563eb;
+  background: #2f6f73;
   color: white;
 }
 
@@ -787,8 +1081,11 @@ button:hover {
 
   .stats,
   .work-grid,
+  .category-grid,
   .form-grid,
   .tools,
+  .inline-form,
+  .task-form,
   .calendar-month {
     grid-template-columns: 1fr;
   }

@@ -136,7 +136,13 @@ export const groups = {
     request('/groups', {
       method: 'POST',
       body: JSON.stringify(groupData)
-    })
+    }),
+  update: (id, groupData) =>
+    request(`/groups/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(groupData)
+    }),
+  delete: (id) => request(`/groups/${id}`, { method: 'DELETE' })
 }
 
 export const tasks = {
@@ -145,7 +151,13 @@ export const tasks = {
     request('/tasks', {
       method: 'POST',
       body: JSON.stringify(taskData)
-    })
+    }),
+  update: (id, taskData) =>
+    request(`/tasks/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(taskData)
+    }),
+  delete: (id) => request(`/tasks/${id}`, { method: 'DELETE' })
 }
 
 export const health = () => request('/health')

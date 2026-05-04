@@ -9,7 +9,10 @@ class GroupController extends Controller
 {
     public function index()
     {
-        return Group::all();
+        return Group::with('tasks')
+            ->withCount('events')
+            ->orderBy('name')
+            ->get();
     }
 
     public function store(Request $request)
@@ -48,6 +51,6 @@ class GroupController extends Controller
         $group = Group::findOrFail($id);
         $group->delete();
 
-        return response()->json(['message' => 'Group deleted successfully']);
+        return response()->json(['message' => 'Kategorija izdzēsta']);
     }
 }

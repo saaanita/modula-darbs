@@ -92,10 +92,10 @@ async function submit() {
 }
 
 .auth-page {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 32px 16px;
 
   display: flex;
   justify-content: center;
@@ -132,14 +132,10 @@ h1 {
 }
 
 .tabs button {
-  position: relative;
-  isolation: isolate;
-  overflow: visible;
-  --button-ear: #f8fafc;
   flex: 1;
   padding: 13px;
   border: none;
-  border-radius: 18px 18px 12px 12px;
+  border-radius: 999px;
   background: rgba(248, 250, 252, 0.92);
   color: #334155;
   cursor: pointer;
@@ -147,35 +143,8 @@ h1 {
   transition: background-color 0.18s ease, color 0.18s ease;
 }
 
-.tabs button::before,
-.tabs button::after,
-.main-btn::before,
-.main-btn::after {
-  content: "";
-  position: absolute;
-  top: -10px;
-  width: 0;
-  height: 0;
-  border-left: 9px solid transparent;
-  border-right: 9px solid transparent;
-  border-bottom: 13px solid var(--button-ear);
-}
-
-.tabs button::before,
-.main-btn::before {
-  left: 28px;
-  transform: rotate(-14deg);
-}
-
-.tabs button::after,
-.main-btn::after {
-  right: 28px;
-  transform: rotate(14deg);
-}
-
 .tabs .active {
-  --button-ear: #f472b6;
-  background: #f472b6;
+  background: #2f6f73;
   color: white;
 }
 
@@ -197,15 +166,11 @@ select {
 }
 
 .main-btn {
-  position: relative;
-  isolation: isolate;
-  overflow: visible;
-  --button-ear: #2563eb;
   width: 100%;
   padding: 15px;
   border: none;
-  border-radius: 20px 20px 14px 14px;
-  background: #2563eb;
+  border-radius: 999px;
+  background: #2f6f73;
   color: white;
   font-size: 16px;
   font-weight: bold;
