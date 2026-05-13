@@ -134,14 +134,14 @@ async function submit() {
   border: none;
   border-radius: 999px;
   background: rgba(248, 250, 252, 0.92);
-  color: #e197cb;
+  color: #ed5ec2;
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.18s ease, color 0.18s ease;
 }
 
 .tabs .active {
-  background: #e197cb;
+  background: #ed5ec2;
   color: white;
 }
 
@@ -167,7 +167,7 @@ select {
   padding: 15px;
   border: none;
   border-radius: 999px;
-  background: #e197cb;
+  background: #ed5ec2;
   color: white;
   font-size: 16px;
   font-weight: bold;
