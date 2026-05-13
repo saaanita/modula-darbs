@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { auth } from '../services/api'
+import logo from '../assets/catlendar-logo.png'
 
 const mode = ref('login')
 const username = ref('')
@@ -53,7 +54,7 @@ async function submit() {
   <main class="auth-page">
     <form class="auth-card" @submit.prevent="submit">
 
-      <h1>catlendar</h1>
+      <img class="auth-logo" :src="logo" alt="catlendar logo" />
 
       <div class="tabs">
         <button type="button"
@@ -103,7 +104,7 @@ async function submit() {
 
   background:
     linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35)),
-    url('https://i.pinimg.com/1200x/ea/7c/b8/ea7cb8c31237edfee3db1f58f382c500.jpg') center / cover no-repeat;
+    url('https://i.pinimg.com/1200x/d2/cf/0a/d2cf0af6fbab5d95c4f15d46b5904973.jpg') center / cover no-repeat;
 
   font-family: Arial, sans-serif;
 }
@@ -113,16 +114,12 @@ async function submit() {
   text-align: center;
 }
 
-h1 {
-  margin: 0;
-  font-size: 42px;
-  color: #1e293b;
-}
-
-.cat-quote {
-  color: #9f1239;
-  font-style: italic;
-  margin-bottom: 20px;
+.auth-logo {
+  max-width: 220px;
+  width: 100%;
+  height: auto;
+  margin: 0 auto 20px;
+  display: block;
 }
 
 .tabs {
@@ -137,14 +134,14 @@ h1 {
   border: none;
   border-radius: 999px;
   background: rgba(248, 250, 252, 0.92);
-  color: #334155;
+  color: #6e207f;
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.18s ease, color 0.18s ease;
 }
 
 .tabs .active {
-  background: #2f6f73;
+  background: #6e207f;
   color: white;
 }
 
@@ -170,7 +167,7 @@ select {
   padding: 15px;
   border: none;
   border-radius: 999px;
-  background: #2f6f73;
+  background: #6e207f;
   color: white;
   font-size: 16px;
   font-weight: bold;

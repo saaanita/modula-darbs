@@ -1,0 +1,92 @@
+--- page 1 ---
+2 
+ 
+1. NOSLĒGUMA DARBA IZSTRĀDE 
+Noslēguma darbā pārbauda izglītojamā teorētiskās zināšanas un praktiskās prasmes. 
+Izglītojamais izstrādā  datu bāzes sistēmu – tīmekļa vietni , publicē to tīmekļa serverī ( hostingā), 
+sagatavo un noformē noslēguma darba dokumentāciju atbilstoši profesijas standartam un mācību kursa 
+prasībām, prezentē paveikto darbu un sasniegto rezultātu, kā arī veic pašvērtējumu projekta izstrādes 
+noslēgumā. 
+Noslēguma darbs sastāv no: 
+1. pilnībā funkcionējoš a programmprodukta vai tā prototip a1, kas demonstrē galveno 
+funkcionalitāti un risina definēto problēmu; 
+2. paskaidrojošā raksta – konkrētas struktūras dokuments, ko noformē atbilstoši mācību 
+darbu noformēšanas norādījumiem; 
+3. prezentācijas – tiek izmantota  sasniegtā rezultāta prezentēšanas laikā; 
+4. pašvērtējuma – izglītojamais sniedz pārdomātu izvērtējumu par savu darbu, izstrādes 
+procesu, rezultātiem un gūtajām mācībām, kā arī apsver iespējamos uzlabojumus un 
+projekta nākotnes attīstības virzienus. 
+ 
+Noslēguma darbā ietvertie uzdevumi apskatāmi zemāk dotajā attēlā. 
+ 
+1.att. Noslēguma darba uzdevumi 
+ 
+1 Ja projekta apjoms vai tehniskais risinājums ir sarežģīts un pilnīga realizācija nav iespējama pieejamajā laikā, ir pieļaujams 
+prototips ar būtiskāko funkcionalitāti, kas skaidri parāda risinājuma ideju un darbības principu.  
+
+--- page 2 ---
+3 
+ 
+1.1. Noslēguma darba uzbūve 
+Noslēguma darba tēmu un datu bāzes veidošanas rīkus izvēlas audzēknis, saskaņo tos ar 
+skolotāju. Tā kā tēmas un izmantoto tehnoloģiju izvēle ir viens no svarīgākajiem nosacījumiem 
+noslēguma darba sekmīgai izpildei, jāievēro zemāk dotas minimālās prasības. 
+Nefunkcionālās prasības: 
+− tabulu skaits – ne mazāk kā 4 (neieskaitot starptabulas); 
+− tīmekļa vietnes interfeiss  – pārskatāms, mūsdienīgs un pielāgots lietotājam (lietotājam 
+draudzīgs dizains, intuitīva navigācija, saprotama informācijas izvietojuma struktūra, 
+vizuāli saskaņots noformējums); 
+− valoda – tīmekļa vietnei jābūt obligāti latviešu valodā; pēc vēlmes var īstenot arī valodu 
+pārslēgšanas iespēju (piemēram, latviešu / angļu); 
+− publicēšana – tīmekļa vietne jāizvieto publiski pieejamā hostingā, lai to varētu apskatīt 
+un testēt arī ārpus izstrādes vides. 
+Funkcionālās prasības 
+− Datu bāzes integrācija ar tīmekļa vietni  – tīmekļa vietnei jābūt tieši savienotai ar datu 
+bāzi, lai lietotāja darbības (piemēram, datu ievade, meklēšana, labošana) notiktu reāllaikā, 
+izmantojot servera puses skriptus (piemēram, PHP, Python, Node.js). 
+− Datu pārvaldība tīmekļa vietnē  – informācijas ievietošana, rediģēšana un dzēšana 
+jāīsteno, izmantojot tīmekļa vietnē izveidotas formas. (INSERT, UPDATE, DELETE 
+darbības tiek veiktas no lietotāja saskarnes, nevis tieši datu bāzē). 
+− Formas lauku validācija – tīmekļa vietnē ievadīto datu pārbaude, nodrošinot to pareizību, 
+jēgpilnību un drošību. Validācija jāveic formas laukiem ( piemēram, personas kodam 
+jāatbilst noteiktam formātam, e -pasta adresei jābūt derīgai, parolei jāatbilst noteiktām 
+drošības prasībām – minimālais garums, speciālie simboli u.c.). 
+− Lietotāju lomu un piekļuves tiesību pārvaldība  – sistēmai jānodrošina lietotāju 
+autentifikācija ( piemēram, reģistrācija un pieslēgšanās ), kā arī funkcionalitātes 
+sadalījums atkarībā no lietotāja lomas (piemēram, viesis var tikai skatīt saturu, reģistrēts 
+lietotājs – pievienot, rediģēt un dzēst savus ierakstus, administrators – pārvaldīt visus 
+datus un lietotājus). 
+− Datu izgūšana un apstrāde 
+▪ Ierakstu kārtošana  - lietotājam jābūt iespējai izvēlēties, pēc kura lauka kārtot datus  
+(piemēram, pēc nosaukuma, datuma, cenas, vērtējuma ), kā arī noteikt kārtošanas secību 
+(augoši / dilstoši). 
+--- page 3 ---
+4 
+ 
+▪ Meklēšana un vienkārša filtrēšana  – lietotājam jābūt iespējai meklēt ierakstus pēc viena 
+konkrēta kritērija vai atslēgvārda (piemēram, pēc nosaukuma vai autora vārda). 
+▪ Paplašinātā filtrēšana (advanced filter) – lietotājam jābūt iespējai vienlaikus atlasīt datus 
+pēc vairākiem kritērijiem  (piemēram, izvēlēties kategoriju, noteikt datuma intervālu un 
+cenas diapazonu), izmantojot vairāku lauku kombināciju ar nolaižamajiem  sarakstiem, 
+izvēles rūtiņām, skaitliskajiem laukiem u.c. 
+▪ Datu apvienošana no vairākām savstarpēji saistītām tabulām - jārealizē datu apvienošana, 
+izmantojot JOIN vaicājumus , lai vienas tīmekļa vietnes lapas ietvaros varētu parādīt 
+informāciju no vairākām tabulām ( piemēram, produktu saraksts kopā ar to kategorijām 
+vai lietotāja informācija ar pasūtījumu vēsturi ). Arī meklēšana un filtrēšana var tikt 
+balstīta uz datiem no vairākām tabulām , nodrošinot pilnvērtīgu informācijas attēlojumu 
+un atlasi. 
+▪ Aprēķinu veikšana  un grupēšana - jārealizē datu apstrāde ar aprēķiniem  (piemēram, 
+ierakstu skaitīšana, summēšana, vidējo rādītāju aprēķināšana ) un datu grupēšana pēc 
+noteiktiem kritērijiem (piemēram, rādīt statistiku par pasūtījumiem pa mēnešiem, lietotāju 
+aktivitāti pa kategorijām, vērtējumu sadalījumu u.c .). Rezultāti jāattēlo lietotājam 
+saprotamā veidā – tabulās, kopsavilkumos vai diagrammās. 
+Papildu iespējas (nav obligātas, bet palielina vērtējumu, ja īstenotas kvalitatīvi): 
+− Papildu validācija  – piemēram, rezervācijas atļautas tikai nākotnes datumos; lietotāja 
+vecums atbilstošs izvēlētajai darbībai u.c. 
+− Datu eksports – iespēja saglabāt kopsavilkumu vai atskaiti .pdf, .xlsx vai citā formātā. 
+− E-pasta apstiprinājums reģistrācijai  – konts tiek aktivizēts tikai pēc tam, kad lietotājs 
+apstiprina saiti e-pastā. 
+− Automātiski e -pasti – sistēmas paziņojumi (piemēram, pasūtījuma apstiprinājums vai 
+rēķins) tiek automātiski nosūtīti lietotājam. 
+− Pēc izvēles var pievienot arī citas funkcijas. 
+  

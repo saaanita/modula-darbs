@@ -1,0 +1,329 @@
+--- page 1 ---
+RĪGAS VALSTS TEHNIKUMS 
+DATORIKAS NODAĻA 
+Izglītības programma: Programmēšana 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+NORĀDĪJUMI MĀCĪBU DARBU NOFORMĒŠANAI 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+RĪGA 
+2025./2026.m.g. 
+--- page 2 ---
+ 
+SATURS 
+ 
+1. VISPĀRĒJIE NORĀDĪJUMI ....................................................................... 3 
+2. TEKSTA NOFORMĒŠANA ........................................................................ 3 
+2.1. Sadaļu virsraksti..................................................................................... 4 
+3. ATTĒLI ......................................................................................................... 5 
+4. TABULAS .................................................................................................... 6 
+5. PIELIKUMI .................................................................................................. 7 
+6. INFORMĀCIJAS AVOTU SARAKSTS ..................................................... 8 
+PIELIKUMI ...................................................................................................... 9 
+1.pielikums. Titullapas paraugs ...................................................................... 9 
+2.pielikums. Satura rādītājs ........................................................................... 10 
+3.pielikums. Pielikuma noformēšana ............................................................ 11 
+4.pielikums. Pielikuma noformēšana ............................................................ 12 
+ 
+--- page 3 ---
+3 
+ 
+1. VISPĀRĒJIE NORĀDĪJUMI 
+Mācību darba noformējumam jāatbilst projektu dokumentācijas noformēšanas 
+vispārpieņemtajiem noteikumiem. 
+Lapas numurē ar arābu cipariem (fonta izmērs – 10), un tos raksta lappuses apakšējā 
+stūrī. Svītriņas pirms un pēc cipara neizmanto. Lapu skaitīšanu sāk ar titullapu, bet lappušu 
+numurus neraksta uz titullapas, anotācijas un satura rādītāja lapas.  
+Ja tekstā bieži tiek izmantots viens un tas pats termins, to var rakstīt arī saīsinātā veidā. 
+Pirmajā izmantošanas reizē terminu uzraksta pilnībā, iekavās seko saīsinātais variants, 
+piemēram, „Informācijas un komunikācijas tehnoloģijas” (IKT). Turpmāk tekstā var brīvi 
+izmantot gan saīsināto, gan pilno variantu. 
+Teksta attālums no lappuses augšējās, apakšējās un labās malas ir 20 mm, no kreisās – 
+30 mm. 
+Audzēknis, iesniedzot savu darbu, apliecina, ka viņš ir izstrādājis šo darbu patstāvīgi, 
+neizmantojot citu autoru darbus vai informācijas avotus bez atsauces. Par plaģiātu tiek 
+uzskatīts darbs, ja tajā var atrast 7 secīgus vārdus, kuri ņemti no cita informācijas avota, 
+nenorādot atsauci uz konkrēto informācijas avotu vai autoru.  
+2. TEKSTA NOFORMĒŠANA 
+Rakstot tekstu, jālieto fonts Times New Roman, fonta izmērs – 12, ar 1,5 intervālu 
+starp rindām. Rindkopas pirmās rindas atkāpe - 1,25 cm. Teksta izlīdzinājums – Justify. 
+Tekstā plaši var izmantot numurētus (Numbering) un marķētus (Bullets) sarakstus. 
+Starprindu intervālu var samazināt līdz 1. Vēlams izmantot saraksta atkāpi no kreisās puses – 
+1,25 cm. Katra nākamā līmeņa saraksta elementus izvietot, izmantojot dažādas teksta atkāpes 
+vērtības, piemēram, 2..līmenim – 0,63cm, 3.līmenim – 1,27cm utt.  
+1. Vadītājs. 
+1.1. Izglītības satura departamenta direktors. 
+1.1.1. Vispārējās izglītības satura nodrošinājuma nodaļa. 
+1.1.2. Profesionālās izglītības satura nodrošinājuma nodaļa. 
+1.2. Valsts pārbaudījumu departamenta direktors. 
+1.2.1. Valsts valodas prasmes pārbaudes nodaļa. 
+1.2.2. Vispārējās izglītības pārbaudījumu nodaļa. 
+2. Administratīvā nodaļa. 
+2.1. Saimnieciskā nodaļa. 
+ 
+2.1. att. Vairāku līmeņu numurētais saraksts 
+--- page 4 ---
+4 
+ 
+Numurētā saraksta elementu numerācijai var izmantot arābu ciparus ar punktu vai 
+iekavu, piemēram, 1., 2. vai 1), 2) utt., vai arī lielos burtus ar punktu, vai mazos burtus ar 
+iekavu, piemēram, A., B. vai a), b) utt. Vairāku līmeņu numurētā sarakstā vislabāk izmantot 
+ciparus ar punktiem (skat. 2.1. att.). Numurētā sarakstā nejaukt burtus un ciparus vienā 
+saraksta noformēšanā. 
+Ja teikuma beigās, kas ir pirms numurēta/marķēta saraksta, ir punkts, tad sarakstu sāk 
+ar lielo burtu un elementu beigās liek punktu. Ja iepriekšējā teikuma beigās ir kols, tad 
+saraksta elementus sāk ar mazo burtu un elementa beigās liek semikolu; pēc pēdēja saraksta 
+elementa liek punktu (skat. 2.2. att.).  
+ 
+Mācību priekšmeti: 
+• matemātika; 
+• latviešu valoda un literatūra; 
+• fizika; 
+• svešvaloda. 
+Mācību priekšmeti. 
+• Matemātika. 
+• Latviešu valoda un literatūra. 
+• Fizika. 
+• Svešvaloda. 
+ 
+2.2. att. Punktuācijas paraugi marķētā saraksta noformēšanā  
+Visa dokumenta ietvaros ieteicams izmantot tikai vienu veidu marķētu/numurētu 
+sarakstu noformēšanai, piemēram, marķēta saraksta pirmajam līmenim – punktus (•), otrajam 
+līmenim – līniju (-), trešajam – zvaigznītes (). 
+2.1. Sadaļu virsraksti 
+Darbā var būt šādas sadaļas: 1.līmenis – nodaļa, 2.līmenis – apakšnodaļa, 3.līmenis – 
+punkts. Lietot ceturtā un lielākā līmeņa virsrakstus nav ieteicams.  
+Nodaļas virsraksta attālums no iepriekšējā un turpmākā teksta ir 10 –12 pt, 
+apakšnodaļās – 8-10 pt. 
+Jautājuma teikumu nedrīkst izmantot kā virsrakstu. Virsrakstos vārdus pārnest nav 
+atļauts, tos nepasvītro un  tā beigās punktu neliek. Virsrakstu rakstīšanai ir ieteicams lietot MS 
+Word stilus Heading 1 (nodaļām), Heading 2 (apakšnodaļām) utt., tas nodrošinās automātisku 
+satura radītāja izveidošanu.  
+Virsrakstu noformēšana 
+1. Mācību darba nodaļas ( pirmā līmeņa) virsrakstus raksta ar izceltiem lielajiem 
+burtiem (Bold, izmērs 16, novietojums - centrēti). Katru nodaļu sāk ar jaunu 
+lappusi. Nodaļas numurē ar arābu cipariem: 1. , 2. utt. 
+Virsrakstus satura rādītājam, ievadam, nobeigumam, informācijas avotu 
+rādītājam nenumurē. 
+--- page 5 ---
+5 
+ 
+2. Apakšnodaļu (otrā līmeņa) virsrakstus raksta ar izceltiem mazajiem burtiem un 
+lielo sākuma burtu (Bold, izmērs 14, novietojums - lapas vidū). Apakšnodaļas 
+numurē attiecīgās nodaļas ietvaros ar diviem arābu cipariem, piemēram: 1.1., 
+2.1. utt. 
+3. Punktu (trešā līmeņa) virsrakstus raksta ar izceltiem mazajiem burtiem un lielo 
+sākuma burtu (Bold, Italic, izmērs 14, novietojums - lapas kreisajā malā), tos 
+numurē attiecīgās apakšnodaļas ietvaros ar trijiem arābu cipariem, piemēram: 
+2.3.1., 2.3.2., utt.    
+Virsrakstu noformēšanas paraugu skatīt 2.3. attēlā 
+ 
+Pirmais līmenis 1. TEORĒTISKĀ DAĻA 
+Otrais līmenis 1.1. Sensoru pielietojums 
+Trešais līmenis 1.1.1. Robotu algoritmu veidi 
+ 
+2.3. att. Virsrakstu noformēšanas paraugs 
+3. ATTĒLI 
+Darbā ievietoto attēlu – shēmu, grafiku, diagrammu, bilžu un tml. apzīmēšanai 
+izmanto vienu un to pašu terminu "attēls". Attēli tiek numurēti visa dokumenta ietvaros vai 
+katras daļas ietvaros, un katram ir jābūt savam nosaukumam. Attēla numuru un nosaukumu 
+raksta centrēti zem attēla (fonts 10 bez izcēluma). Aiz nosaukuma punktu neliek. Attēla 
+noformēšanas paraugu skatīt 3.1.attēlā. 
+--- page 6 ---
+6 
+ 
+Tekstā, kura ilustrēšanai izmantots attēls, attiecīgā vietā jāsniedz uz to atsauce, 
+piemēram, „1.2.att. ir parādīts optiskais sensors ...”. Attēlus vēlams izvietot pēc šīs atsauces, 
+bet tajā pašā lapā.  
+1. TEORĒTISKĀ DAĻA 2. TEHNOLOĢISKĀ DAĻA 
+ 
+1.2.att.Optiskais sensors 
+ 
+5.att.WOWWEE robots MIP 
+ 
+3.1. att.Attēlu nosaukuma noformēšanas paraugs 
+Lapaspusē var būt izvietoti vairāki attēli, bet tie nevar sekot viens aiz otra – starp tiem ir 
+jābūt tekstam. Attēls nevar būt izvietots lappuses sākumā vai uzreiz pēc sadaļas virsraksta, 
+tam priekšā jābūt paskaidrojošam tekstam. Ja attēla izmērs neļauj izvietot to lapā bez pārāk 
+lielu tukšo apgabalu veidošanās, to var pārnest arī nākamajā lapā vai ievietot pielikumā. Tad 
+attēlu numurē pielikuma ietvaros un atsauce izskatīsies šādi: „skatīt 2. pielikuma 6. attēlā …”. 
+Attēlu noformēšanas paraugu skatīt 3.pielikumā. 
+4. TABULAS 
+Katrai darbā ievietotajai tabulai ir jābūt numurētai un ar virsrakstu. Tabulas numurē ar 
+arābu cipariem tikai nodaļas ietvaros, piemēram: 1.1.tabula, 2.3.tabula, 2.3.tab. turpinājums 
+(virs tabulas pārnestās daļas) utt.  
+Tabulas numuru raksta labajā pusē virs tabulas nosaukuma (fonta izmērs – 10pt). 
+Tabulas nosaukumu raksta nākamajā rindā centrēti virs tabulas ar maziem burtiem un lielo 
+sākuma burtu (Bold, fonta izmērs 12pt), bez punkta nosaukuma beigās. Virsrakstu nepasvītro. 
+Tabulas kolonnu virsrakstus izceļ ar trekniem burtiem. Tukšā tabulas rindā (ailē, šūniņā) 
+ievelk svītriņu. Fonta izmērs tabulā ir 10pt, starprindu intervāls - 1. Ja tabula neietilpst vienā 
+lapā, to var pārnest nākamajā, atkārtojot kolonnu virsrakstus. Zemāk tiek parādīts otrās daļas 
+trešajā nodaļā ievietota pirmās pēc kārtas tabulas virsraksta noformējuma piemērs. 
+2.3.tabula 
+Vibrāciju mērītāja tehniskie parametri 
+Nr. Troksnis (m/s²) Sensora jūtīgums 
+(mV/g) 
+Sensora kabeļa garums 
+(m) 
+Lineārais frekvenču 
+diapazons (Hz) 
+1. 0.003  10 3 500 
+2. 0.001 15 5 1000 
+--- page 7 ---
+7 
+ 
+ 
+2.3.tabulas turpinājums 
+ 
+Nr. Troksnis (m/s²) Sensora jūtīgums 
+(mV/g) 
+Sensora kabeļa garums 
+(m) 
+Lineārais frekvenču 
+diapazons (Hz) 
+3. 0.003 8 4 1500 
+ 
+4.1. att. Tabulas noformēšanas paraugs 
+Tekstā attiecīgā vietā jāsniedz atsauce uz tabulu, piemēram: “skatīt datus 2.3.tabulā”. Ja 
+nodaļā ir tikai viena tabula, tad to arī numurē. 
+5. PIELIKUMI 
+Dažādus palīgmateriālus, kas neiekļaujas darba pamatsaturā, pievieno darbam kā 
+pielikumus. Katru pielikumu sāk ar jaunu lappusi, tās labajā augšējā stūrī uzrādot pielikuma 
+kārtas numuru, piemēram, 1.pielikums, 2.pielikums utt.. Pielikuma nosaukumu raksta 
+nākamajā rindā ar maziem burtiem un lielo sākuma burtu, kā parādīts 5.1. un 5.2.attēlā. 
+ Formatēšanas stils 
+PIELIKUMI Bold, 16 pt 
+1.pielikums 12 pt 
+Pielikuma nosaukums Bold, 14pt, centrēti 
+5.1.att. 1.pielikuma noformēšanas paraugs 
+ Formatēšanas stils 
+2.pielikums 12 pt 
+Pielikuma nosaukums Bold, 14pt, centrēti 
+5.2.att. 2.pielikuma noformēšanas paraugs 
+Ja darbam ir viens pielikums, tad to arī numurē. 
+Tekstā attiecīgā vietā jāsniedz atsauce uz pielikumu, piemēram: “1. pielikumā ir....”. 
+Ja pielikumā ir lietderīgi pievienot kādu svešvalodā izstrādātu informatīvi normatīvo 
+materiālu, tad to nav nepieciešams tulkot valsts valodā (drīkst pievienot oriģinālvalodā). 
+Pielikumā var pievienot arī lapas, kas ir izvietotas horizontāli. Šajā gadījumā tās 
+izvieto tā, lai varētu izlasīt tekstu, pagriežot darbu pulksteņrādītāja virzienā. Noformēšanas 
+paraugus skatīt 3.un 4.pielikumā. 
+--- page 8 ---
+8 
+ 
+6. INFORMĀCIJAS AVOTU SARAKSTS 
+Informācijas avotu sarakstā  jāiekļauj visi tie informācijas avoti, kurus audzēknis ir 
+izmantojis darba izstrādāšanā.  
+Literatūras avotus apraksta oriģinālvalodā un tos sarindo alfabēta secībā pēc autora 
+uzvārda. Sarakstu kārto alfabētiskā secībā - vispirms uzrāda norādes latviešu valodā (latviešu 
+alfabēta secībā), tad uzrāda norādes latīņu cilmes valodās (angļu, vācu utt. - latīņu alfabēta 
+secībā) un pēc tam – norādes slāvu cilmes valodās (slāvu alfabēta secībā). I nformācijas 
+avotiem ir jābūt numurētiem. 
+Uz katru no literatūras sarakstā minētajiem avotiem pamattekstā jābūt atsaucei. To 
+izdara, tekstā aiz attiecīgā materiāla kvadrātiekavās ierakstot literatūras kārtējo numuru, 
+piemēram, [1] vai [2, 6]. 
+Informācijas avotu noformēšanas paraugu skatīt 6.1.attēlā 
+ 
+• Bērziņš A. Labas grāmatas paraugs. – Rīga: RTU, 2012. – 244 lpp. 
+• Lapiņš B., Zariņš C. Labā raksta paraugs//Forbes. – Rīga: SK Media, 2010. – 35.-38. 
+lpp. 
+• Profesionālās izglītības programmas. – 
+http://visc.gov.lv/profizglitiba/programmas.shtml. - (Resurs apskatīts 29.10.2012.). 
+ 
+6.1. att. Informācijas avotu noformēšanas paraugi 
+--- page 9 ---
+Pārskata titullapu nevajag ierāmēt  9 
+ 
+PIELIKUMI 
+1. pielikums 
+Titullapas paraugs 
+ 
+RĪGAS VALSTS TEHNIKUMS 
+DATORIKAS NODAĻA 
+Izglītības programma: Programmēšana 
+ 
+ 
+REFERĀTS 
+ 
+Printera ABC Laser Jet 2011  
+uzbūve un tehniskā apkope 
+ 
+ 
+ 
+Audzēknis:  J. Bērziņš 
+ 
+Rīga 
+2025
+--- page 10 ---
+Satura rādītāja lapu nevajag ierāmēt  10 
+ 
+2. pielikums 
+Satura rādītājs  
+SATURS 
+IEVADS ................................................................................................................ 5 
+1. NODAĻAS NOSAUKUMS .......................................................................... 6 
+ 1.1. Apakšnodaļas nosaukums ........................................................................ 6 
+ 1.1.1. Punktu nosaukums ............................................................................. 9 
+ 1.2. Apakšnodaļas nosaukums ...................................................................... 10 
+ 1.2.1. Punktu nosaukums ........................................................................... 15 
+ 1.2.2. Pinktu nosaukums ........................................................................... 18 
+2. NODAĻAS NOSAUKUMS ........................................................................ 20 
+ 2.1. Apakšnodaļas nosaukums ...................................................................... 20 
+ 2.1.1. Punktu nosaukums ........................................................................... 22 
+ 2.1.2. Punktu nosaukums ........................................................................... 25 
+ 2. 2. Apakšnodaļas nosaukums ..................................................................... 30 
+ 2.2.1. Punktu nosaukums ........................................................................... 32 
+ 2.2.2. Punktu nosaukums ........................................................................... 40 
+NOBEIGUMS .................................................................................................... 52 
+INFORMĀCIJAS AVOTI ................................................................................ 53 
+PIELIKUMI ....................................................................................................... 54 
+ 1.pielikums. Pielikuma nosaukums ............................................................... 54 
+ 2.pielikums. Pielikuma nosaukums ............................................................... 56 
+ 
+ 
+--- page 11 ---
+Pielikuma lapu nevajag ierāmēt  11 
+ 
+3. pielikums 
+Pielikuma noformēšana 
+ 
+PIELIKUMI 
+1.pielikums 
+Sensoru veidi 
+ 
+ 
+1. att.Induktīvie sensori 
+ 
+ 
+ 
+2. att.Infrasarkanās gaismas sensori 
+54 
+--- page 12 ---
+Pielikuma lapu nevajag ierāmēt  12 
+ 
+4. pielikums 
+Pielikuma noformēšana 
+ 
+ 
+2.pielikums 
+ 
+ 
+56 
+ 
+ 
+Datu bāzes iekšējā shēma 

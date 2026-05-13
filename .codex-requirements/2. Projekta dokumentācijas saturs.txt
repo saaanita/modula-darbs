@@ -1,0 +1,704 @@
+--- page 1 ---
+5 
+ 
+2. PASKAIDROJOŠĀ RAKSTA IZSTRĀDE 
+Obligātās paskaidrojošā raksta sastāvdaļas ir: Titullapa, Saturs, Ievads, Uzdevuma nostādne, Datu 
+modelēšana (objektorientēts konceptuālais un entītiju relāciju datu modelis ), Datu bāzes izstrāde un drošības 
+nodrošināšana (datu glabāšanas fiziskās struktūras apraksts, drošības mehānismi un piekļuves kontrole), Sistēmas 
+darbības testēšana ( funkcionalitāšu apraksts ar testa piemēriem ), Nobeigums, Informācijas avoti, Pielikumi 
+(shēmas, diagrammas, attēli utt.). 
+2.1. Titullapa 
+Noslēguma darba titullapu noformē atbilstoši paraugam (skat. 1.pielikumu). Titullapu nevajag ierāmēt! 
+2.2. Saturs 
+Saturā uzrāda daļu, nodaļu un apakšnodaļu, pielikumu numerāciju un nosaukumus, kā arī visu sadaļu 
+nosaukumus. Saturā iekļauj visus teksta virsrakstus līdz 3. līmenim ieskaitot. Saturam ir jāiekļaujas vienā 
+lapā, kuru nenumurē. Satura rādītāja paraugs ir dots 2.pielikumā. 
+2.3. Ievads 
+Šajā sadaļā apraksta problēmu, kuru plānots risināt ar izstrādājamo tīmekļa sistēmu. Jāizskaidro, kāpēc 
+šī problēma ir aktuāla konkrētā situācijā vai vidē – kādi procesi ir sarežģīti, laikietilpīgi, manuāli vai 
+nepārskatāmi. Jāpamato, kā izstrādājamā sistēma palīdzētu šo problēmu novērst vai būtiski atvieglot, un kādu 
+ieguvumu no tās gūs galalietotājs. 
+Sadaļā arī jāsniedz atsauce uz veikto tirgus izpēti – jānorāda, ka ir analizētas vairākas līdzīgas sistēmas, 
+taču tajās konstatēti būtiski trūkumi, piemēram, sarežģīta lietotāja saskarne, ierobežota funkcionalitāte, 
+valodas vai piekļuves ierobežojumi.  
+Pamatojot savas sistēmas lietderību, jāizceļ tās plānotās priekšro cības un stiprās puses, kā arī 
+jāizskaidro, kāpēc šāds risinājums ir nepieciešams un aktuāls. 
+Ievads ir pirmā lapa, kas tiek numurēta ar skaitli “3”. Ievada sākuma piemērs ir dots 2. attēlā.  
+ 
+2. att. Ievada sākums 
+  
+IEVADS 
+Mūsdienās, arvien straujāk attīstās informācijas un digitālās tehnoloģijas, sakarā ar ko veidojas jaunas cilvēku 
+vajadzības programmatūras izstrādāšanā noteiktajā jomā. Viena no galvenajām jomām ir māksla, kur cilvēks 
+izpauž sevi jau ne tikai caur zīmuli un papīru, bet arī caur datoru. Tam pastāv arī speciā lās datora ievadierīces, 
+piemēram, grafiskās planšetes, ar ko palīdzību cilvēki zīmē gleznas, apstrādā bildes un fotogrāfijas datorā. Ja 
+tradicionālās zīmēšanas mākslinieku darbus var apskatīt izstādēs un galerijās, tad digitālās zīmēšanas 
+māksliniekiem tāda iespēja ne visai pastāv. Šī moduļa noslēguma darba mērķis ir izveidot sistēmu, kur jebkurš 
+cilvēks neatkarīgi no tā, kas viņš ir pēc izglītības vai vecuma, varēs dalīties ar savu pieredzi zīmēšanā, 
+fotografēšanā vai to apstrādē un kur katram no viņiem būs iespēja kļūt par populāru mākslinieku. 
+Latvijā vēl nav izstrādātas sistēmas, kas veicina digitālās mākslas attīstīšanu. 
+--- page 2 ---
+6 
+ 
+2.4. Uzdevuma nostādne 
+Sadaļa sākas ar konkrētu noslēguma darba uzdevumu – vienā teikumā jānorāda, kāds ir sistēmas mērķis 
+un galvenais uzdevums. Tālāk jāiekļauj īss pamatojums par sistēmas izstrādes vajadzību, aktualitāti un 
+lietderīgumu (var pārņemt vai pārfrāzēt no sadaļas Ievads), kā arī jānorāda, kāda informācija tiks glabāta datu 
+bāzē, piemēram: Datu bāzē tiks glabāta informācija par lietotājiem, grāmatām, autoriem, žanriem un 
+pievienotajiem komentāriem. 
+Otrajā rindkopā jāraksturo sistēmas galvenās funkcionalitātes (vismaz 5) kopsavilkuma veidā. Funkcijas 
+jāformulē vienkārši un skaidri, neminot lietotāju lomas. Piemēram: grāmatu pievienošana, labošana un 
+dzēšana; publicēto darbu skatīšana un vērtēšana; kom entāru pievienošana; meklēšana pēc autora vai 
+nosaukuma; grāmatu filtrēšana pēc žanra vai valodas. 
+Uzdevuma nostādnes piemērs ir dots 3.attēlā. 
+ 
+3. att. Uzdevuma nostādnes piemērs 
+2.4.1. Sistēmas lietotāji un to mijiedarbība ar sistēmu 
+Šajā apakšsadaļā jāapraksta, kādi lietotāji izmanto izstrādāto sistēmu, kāda ir viņu uzvedība un 
+galvenās mijiedarbības ar sistēmu. Jānorāda, kādas darbības katrs lietotājs veic un kā šīs darbības 
+atšķiras dažādām lomām (piemēram, viesis, reģistrēts lietotājs, administrators). Ja reģistrētie lietotāji 
+sistēmā veic atšķirīgus uzdevumus, tie jāsadala konkrētās apakšlomās (piemēram, lasītājs un 
+rakstnieks). 
+Sadaļā obligāti jāiekļauj lietošanas gadījumu diagramma – USE CASE diagramma (var ievietot 
+pielikumos), kurā attēlota sistēmas mijiedarbība ar visām lietotāju lomām. Diagrammai jāatbilst šādām 
+prasībām: 
+ jābūt visām sistēmas lietotāju lomām, t.sk. vismaz “viesis” un “reģistrēts lietotājs”, reģistrēto 
+lietotāju var sadalīt apakšlomās (piemēram, “rakstnieks”, “lasītājs”, “autors”); 
+1. UZDEVUMA NOSTĀDNE 
+Noslēguma darba uzdevums ir izveidot un nodrošināt tiešsaistes vietni, kurā lietotāji va r lasīt dažādas 
+klasiskās un tradicionālās grāmatas, kā arī publicēt savus oriģināldarbus plašai auditorijai. Šobrīd nav pieejamas 
+platformas, kas vienlaikus piedāvātu kvalitatīvu klasiskās literatūras klāstu un lietotāju radītus darbus, tādēļ šīs 
+sistēmas izveide ir aktuāla un lietderīga. Tā palīdzēs paplašināt literāro izlasi, veicinās valodas prasmju pilnveidi 
+un atbalstīs latviskās kultūras saglabāšanu. Datu bāzē tiks glabāta informācija par lietotājiem (vārds, e -pasts, 
+parole), grāmatām (nosaukums, apr aksts, autors, žanrs, vecuma ierobežojums, publicēšanas gads, darba statuss, 
+vērtējumi), kā arī lietotāju jautājumiem administrācijai. 
+Sistēmas galvenās funkcionalitātes ietver:  
+ grāmatu lasīšanu tiešsaistē;  
+ lietotāju darbu publicēšanu;  
+ literatūras pievienošanu, rediģēšanu un dzēšanu;  
+ meklēšanu pēc nosaukuma vai autora;  
+ grāmatu filtrēšanu pēc žanra vai valodas;  
+ darbu vērtēšanu un komentēšanu.. 
+--- page 3 ---
+7 
+ 
+ katram lietotājam jābūt piesaistītiem loģiskiem un savstarpēji atšķirīgiem lietošanas 
+gadījumiem (piemēram, “reģistrēties”, “lasīt grāmatu”, “pievienot stāstu”, “rediģēt profilu” 
+utt.); 
+ diagrammā jāizmanto “include” un/vai “extend” saites, kur tas ir nepieciešams (piemēram, 
+“komentāra pievienošana” iekļauj “autentifikāciju”); 
+ diagrammas zīmēšanā jāievēro UML standarta elementi un to pareiza lietošana – jāizmanto 
+aktieri, lietošanas gadījumu ovāli, savienojuma līnijas un bulti ņas ar korektu virzienu, kā arī 
+jānodrošina loģisks un pārskatāms elementu izkārtojums. 
+Teksta daļā jāsniedz detalizēts sistēmas lietotāju apraksts: 
+ jāapraksta, kāda ir konkrētās lomas funkcija sistēmā, piemēram, viesis tikai skatās 
+saturu, reģistrēts lietotājs veido un rediģē saturu, administrators pārvalda datus u.c. 
+ jāizklāsta tipiskas lietotāja darbības secīgi, piemēram: 
+o “Viesis ienāk vietnē, meklē konkrētu grāmatu, lasa tās informāciju un vēlas 
+pievienot komentāru, bet tiek aicināts reģistrēties.” 
+o “Rakstnieks piesakās sistēmā, pievieno jaunu darbu, augšupielādē attēlu, 
+saglabā to kā melnrakstu un vēlāk publicē.” 
+ jāapraksta, kā lietotāji izmanto galveno funkcionalitāti (piemēram, kā lietotājs nonāk līdz 
+noteiktai darbībai un kā sistēma reaģē); 
+ jānorāda, kāpēc izmantoti “include” vai “extend” savienojumi. 
+Piemēram: “Darbība 'pievienot komentāru' iekļauj autentifikāciju, jo tikai reģistrēti 
+lietotāji drīkst pievienot komentārus.”; ja izmantota darbību paplašināšana, jāizskaidro, 
+kādos gadījumos tā notiek. Piemēram: “'Publicēt darbu' gadījumā tiek izmantots 'extend', 
+lai nodrošinātu opciju nosūtīt darbu administratora apstiprinājumam, ja tas satur 
+sensitīvu saturu.” 
+Lietošanas gadījumu diagrammas un lietotāju uzvedības apraksta piemēri pieejami 3. un 4. 
+pielikumā. 
+2.4.2. Uzdevuma risināšanas līdzekļu izvēles pamatojums 
+Šajā apakšsadaļā jāapraksta visi rīki, tehnoloģijas un bibliotēkas, kas izmantoti sistēmas 
+projektēšanā un izstrādē. Jāsniedz vispārīgs apraksts par katru tehnoloģiju – ko tā nodrošina, kāda ir 
+tās funkcija projektā – un jāpamato, kāpēc tieši šī tehnoloģija tika izvēlēta (piemēram, piemērotība 
+uzdevuma veikšanai, vienkārša integrācija, plašs atbalsts, drošība  u.c.). Obligāti jāuzrāda arī lietotās 
+versijas (piemēram, PHP 8.2, MySQL 8.0, Bootstrap 5.3, Visual Studio Code 1.89).  
+Šajā sadaļā jāiekļauj: 
+ izmantotā programmatūra (piemēram, koda redaktors, pārlūks, dizaina rīks u.c.); 
+ programmēšanas valodas (piemēram, HTML, CSS, JavaScript, PHP u.c.); 
+ datu bāzes pārvaldības sistēma (piemēram, MySQL, Microsoft SQL Server); 
+ stilizēšanas bibliotēkas (piemēram, Bootstrap, Tailwind); 
+--- page 4 ---
+8 
+ 
+ papildu JavaScript bibliotēkas vai spraudņi, ja tādi izmantoti (piemēram, Chart.js 
+diagrammu attēlošanai, jQuery darbību vienkāršošanai, EmailJS e-pastu nosūtīšanai u.c.). 
+Sadaļas piemērs ir dots 4.attēlā. 
+ 
+4. att. Risināšanas līdzekļu izvēles pamatojuma paraugs 
+2.5. Datu modelēšana 
+Datu modelēšanas sadaļā detalizēti apraksta sistēmas konceptuālo un loģisko datu modeli. 
+2.5.1. Objektorientēts konceptuālais datu modelis 
+Šajā sadaļā jāizskaidro, kā sistēmā tiek organizēta un strukturēta informācija, izmantojot 
+objektorientētu pieeju. Jāparāda, kādi objekti (klases) veido sistēmu, kā tie savstarpēji saistīti un kādu 
+funkcionalitāti tie nodrošina.  
+Sadaļā obligāti jāiekļauj UML klašu diagramma, kas attēlo sistēmas galvenos informācijas 
+vienumus un to savstarpējās attiecības. Diagrammu var  ievietot pašā sadaļā vai pielikumā. 
+Diagrammai jāatbilst šādām prasībām: 
+ jābūt attēlotām vismaz piecām klasēm, kas veido sistēmas loģisko struktūru; 
+ katrā klasē jānorāda: 
+o atribūti ar datu tipu un piekļuves līmeni (+, -, #), 
+o metodes ar piekļuves līmeni un atgriežamo datu tipu; 
+ jāizmanto attiecību savienojumi starp klasēm, atbilstoši to nozīmei: 
+o kompozīcija – ja objekts nevar eksistēt bez citas klases, 
+o agregācija – ja objekti ir saistīti, bet var pastāvēt neatkarīgi, 
+o asociācija – vienkārša saikne starp klasēm, 
+1.2. Uzdevuma risināšanas līdzekļu izvēles pamatojums 
+Sistēma ir paredzēta ērtai grāmatu lasīšanai un savu stāstu publicēšanai. Lai sasniegtu mērķi, tiek 
+izmantotas dažādas tehnoloģijas un rīki. 
+Servera daļas izveidei tika izmantots PHP(v8.2.12) programmēšanas valoda. Atšķirībā no citām valodām, 
+PHP ir specializēta tīmekļa izstrādei, un ar to ir vieglāk un ērtāk strādāt. Tā labi sadarbojas ar datu bāzēm un ir 
+viegli apgūstama. Turklāt tai ir ātrs un konfigurējams tehnoloģiju kopums, piemēram, XAMPP.  
+Tika izmantots populārais PHP framwork – Laravel(v11.42.1). Tas ievērojami atvieglo darbu un labi 
+strukturē kodu. Šis framvorks tika izvēlēts, jo Laravel palīdz definēt maršrutus dažādām funkcijām un lapu 
+pārejām. Pateicoties tam, ir arī ērti strādāt ar datu bāzēm, izmantojot iebūvēto Eloquent ORM – var rakstī t 
+funkcijas datu iegūšanai, saglabāšanai, labošanai un dzēšanai, neizmantojot tiešus MySQL vaicājumus. Papildus 
+tam, Laravel piedāvā plašu ekosistēmu. Piemēram, projektā tika izmantots Laravel Breeze autentifikācijai. Tas 
+ievērojami vienkāršoja darbu ar reģistrāciju un pieteikšanos, jo pamata funkcionalitāte jau bija gatava. 
+…. 
+…. 
+--- page 5 ---
+9 
+ 
+o mantojums (nav obligāts) – ja viena klase pārņem citas k lases atribūtus un 
+metodes; 
+ pie attiecībām jānorāda kardinalitāte (piemēram, 1..1, 1..*, 0..1), kas parāda objektu 
+skaita attiecību; 
+ diagrammai jābūt vizuāli pārskatāmai, ar loģisku elementu izvietojumu un pareizu 
+savienojumu virzienu. 
+Sadaļas teksta daļā: 
+ jāizskaidro, kādu funkciju konkrētā klase pilda sistēmā, kādus datus tā pārstāv un kādām 
+darbībām tā paredzēta; aprakstā jāuzsver, kāpēc šī klase ir nepieciešama un kā tā 
+iekļaujas kopējā sistēmas darbības loģikā; 
+ jāpaskaidro, kā klases ir savstarpēji saistītas - katram attiecību pārim jāapraksta, kāda ir 
+šī saikne (piemēram, “Klase Nodaļa ir kompozīcijā ar klasi Stāsts”), un jāpamato, kāpēc 
+izvēlēts tieši šis attiecību veids (piemēram, “jo nodaļas nevar pastāvēt bez konkrēta 
+stāsta”); 
+ ja izmantots mantoju ms, jāapraksta, ko viena klase manto no otras un kā tas ietekmē 
+sistēmas loģiku vai vienkāršo struktūru (piemēram, “Klase Reģistrēts lietotājs manto 
+visas metodes no Lietotājs, jo abi veic līdzīgas darbības, bet reģistrētajam lietotājam ir 
+papildu funkcijas”). 
+Klašu diagrammas un tās apraksta piemēri pieejami 5. un 6. pielikumā. 
+ 
+2.5.2. Entītiju relāciju datu modelis 
+Šajā sadaļā jāizskaidro, kā datu bāzē tiek organizēta un strukturēta i nformācija, izmantojot 
+entītiju relāciju datu modeli. Jāparāda, kādas entītijas  veido sistēmu, kā tās savstarpēji saistītas un 
+kādus datus tās satur.  
+Sadaļā obligāti jāiekļauj ER diagramma Pitera Čena notācijā, kas vizuāli attēlo sistēmas galvenās 
+entītijas, to atribūtus un savstarpējās saites, nodrošinot skaidru pārskatu par datu s truktūru un to 
+loģiskajām attiecībām. 
+Sadaļas teksta daļā: 
+ jāapraksta katras entītijas funkcija sistēmā, kādi dati tajā tiek pārstāvēti un kāpēc šī entītija 
+ir nepieciešama; 
+ katras relācijas aprakstā  jāsniedz saistību skaidrojums divos teikumos (no abām pu sēm). 
+Piemēram: Viens lietotājs var izveidot vairākus stāstus. Katrs stāsts pieder tikai vienam 
+konkrētam lietotājam; 
+ ja izmantoti EER elementi, jāskaidro to nepieciešamība un nozīme sistēmas darbībā. 
+ER datu modeļa apraksta piemērs ir dots 5.attēlā. 
+--- page 6 ---
+10 
+ 
+ 
+5. att. Sistēmas ER datu modeļa apraksta piemērs 
+ER d iagrammu var ievietot pašā sadaļā vai pielikumā ( paraugs ir pieejams 7.pielikumā ). 
+Diagrammai jāatbilst šādām prasībām. 
+ Jābūt attēlotām visām entītijām, kas nepieciešamas sistēmas datu modeļa īstenošanai. 
+ Katrā entītijā jānorāda visi būtiskie atribūti, kas raksturo datus. Kā identificējošie atribūti 
+jāizvēlas nozīmīgie, reālajā sistēmā l ietotie identifikatori (piemēram, numurs vai kods), 
+izvairoties no tehniskiem nosaukumiem, piemēram, “ID”. Ja entītijai ir vairāki šādi 
+nozīmīgie identificējošie atribūti, jāiezīmē visi. ER diagrammā ārējās atslēgas (FK) netiek 
+iekļautas, jo tās nav konceptuālie entītijas atribūti, bet gan fiziskie lauki, kas tiek izmantoti 
+tabulu savienojumu realizācijai.  
+ Jānorāda relācijas starp entītijām, iekļaujot to nosaukumus un kardinalitāti (piemēram, 1..1, 
+1..m, 0..1), lai skaidri atspoguļotu datu savstarpējās attiecības. 
+ Izmantojot paplašināto ER modeli (EER), ER diagrammā jāiekļauj arī specializācijas, 
+mantošanas un vājās entītijas elementi. 
+ Visi elementu nosaukumi un paskaidrojošie uzraksti jāveido latviešu valodā. 
+ Diagrammai jānodrošina vizuāla pārskatāmība un loģisks elementu izvietojums; 
+nepieciešamības gadījumā pielikumos lapas orientāciju var mainīt uz ainavas formātu. 
+2.6. Datu bāzes izstrāde un drošības nodrošināšana 
+Šajā sadaļā jāapraksta izstrādātās sistēmas datu bāze, tās struktūra un drošības nodrošināšanas principi. 
+Sadaļā arī jāparāda, kā dati tiek glabāti un organizēti, pamatojot izvēlēto tās atbilstību trešās normālformas 
+(3NF) prasībām, jāsniedz skaidrojums par integritātes nodroši nāšanas mehānismiem un papildus drošības 
+risinājumiem. 
+2.6.1. Datu glabāšanas fiziskā struktūra 
+Datu glabāšanas fiziskā struktūra ietver sevī tabulas, kolonnas, identifikatorus, kā arī relācijas 
+starp tabulām. Šajā sadaļā ir jādod datu struktūras detalizēts apraksts: 
+2.2. Entītiju relāciju datu modelis 
+Datu bāzes projektēšanā datu kopu un saišu starp tām attēlošanai tika lietota realitāšu saišu diagramma, kas 
+sastāv no divu veidu objektiem – entītēm un relācijām. ER diagramma (sk.3.pielikumā) sastāv no 10 entītijām, kas 
+atspoguļo datu aprīti sistēmā. 
+ “Lietotājs” – uzskaita sistēmas lietotājus;  tās atribūtu kopā ietilpst segvārds, e -pasta adrese, 
+parole, loma, biogrāfija. 
+ “Lietotāja stāsts” – ietotāju rakstīto un vietnē publicēto stāstu saraksts; tās atribūtu kopā ietilpst 
+nosaukums, apraksts, vecuma ierobežojums un darba statuss. 
+ ..... 
+Datu bāzes relācijas parāda, kā divas vai vairākas entītijas ir savstarpēji saistītas. 
+ Starp lietotāju un lietotāja stāstu ir attiecība viens pret daudziem, jo lietotājs var uzrakstīt daudzus 
+stāstus, bet viens konkrēts stāsts pieder tikai vienam konkrētam lietotājam. 
+ ... 
+--- page 7 ---
+11 
+ 
+ katras tabulas struktūras aprakstā jānorāda tabulas nosaukums un īss ievads par tās mērķi 
+un saturētajiem datiem, piemēram, kāda informācija tiek glabāta un kā tā tiek izmantota 
+sistēmā; 
+ jāuzskaita visi lauki, norādot katram nosaukumu un tipu; simbolu  virkņu laukiem 
+(VARCHAR, CHAR u.c.) jānorāda ne tikai datu tips, bet arī maksimālais atļautais 
+garums; 
+ piezīmēs jānorāda būtiska papildinformācija – primārās vai ārējās atslēgas, formāta 
+prasības, datu nozīme un ierobežojumi.  
+Datu glabāšanas struktūras vizualizācijai jāizstrādā datu bāzes tabulu saišu shēma, kurā jāattēlo 
+visas datu bāzes tabulas, kas ir savstarpēji saistītas ar citām tabulām un tiek izmantotas sistēmas datu 
+apmaiņā. Tabulas, kas nav savienotas ar nevienu citu tabulu (piemēram, Admin, Sistēmas žurnāls), šajā 
+shēmā netiek iekļautas. 
+Katrā tabulā jānorāda visi tās lauki ar izmantoto domēnu ( simbolu virkne, vesels skaitlis utt. ). 
+Primārās atslēgas lauki jāatzīmē ar apzīmējumu PK, ārējās atslēgas lauki — ar apzīmējumu FK. 
+Tabulu savstarpējās s aites jāattēlo, izmantojot atbilstošus grafiskos apzīmējumus ( atkarībā no 
+izmantotā diagrammas veidošanas rīka ), un, ja nepieciešams, papildus jānorāda kardinalitāte, 
+izmantojot simbolus 1, 0, m (viens pret vienu, viens pret daudziem). Jāņem vērā, ka relāciju datu bāzes 
+tabulu saišu shēmā nedrīkst būt tiešas saites “daudzi pret daudziem” — šādos gadījumos jāizveido 
+starptabulas. 
+Papildus sadaļā jāiekļauj arī katras tabulas veidošanas SQL kods (CREATE TABLE komandas), 
+lai precīzi atspoguļotu datu struktūras izveidi. 
+Shēmu var ievietot pašā sadaļā vai pielikumos, nepieciešamības gadījumā mainot lapas 
+orientāciju uz ainavas formātu, lai nodrošinātu pārskatāmību. Datu glabāšanas struktūras apraksta 
+piemērs ir pieejams 8.un 9.pielikumā. 
+2.6.1.1. Datu integritātes nodrošināšana 
+Šajā sadaļā jāapraksta, kā izstrādātajā datu bāzē tiek nodrošināta datu integritāte, izmantojot 
+dažādus ierobežojumus un papildu mehānismus. Aprakstam jābūt balstītam uz konkrētām datu bāzē 
+ieviestām iespējām un jāsniedz pamatojums katra risinājuma izvēlei. 
+Sadaļā: 
+ jāapraksta izmantotie ierobežojumi (NOT NULL, UNIQUE, CHECK, DEFAULT ) un 
+jāpamato to izmantošana; 
+ ja sistēmā izmantoti aprēķinātie lauki (piem., cenas ar PVN, kopējā pasūtījuma summa), 
+jāpaskaidro, kā tie aprēķināti un kāpēc izveidoti kā atsevišķi lauki vai skatījumi; 
+ ja tika izveidoti indeksi, jāpamato to izveides iemesls (piem., ātrdarbības uzlabošana 
+meklēšanā, kārtošanā vai filtrēšanā), jānorāda, uz kuriem laukiem tie izveidoti un kā tas 
+ietekmē vaicājumu izpildes ātrumu; 
+--- page 8 ---
+12 
+ 
+ ja izmantoti trigeri, jāapraksta to darbība (piem., automātiska datu atjaunināšana citā 
+tabulā pēc ievades, datu vēstures glabāšana, automātiskas validācijas). 
+2.6.1.2. Datu bāzes atbilstības pamatojums  3NF prasībām 
+Šajā sadaļā jāveic izstrādātās datu bāzes struktūras analīze, lai noteiktu tās atbilstību trešās 
+normālformas (3NF) prasībām. Aprakstam jābūt balstītam uz praktiskiem piemēriem no 
+konkrētās izstrādātās datu bāzes, nevis tikai teorētisku definīciju izklāstu. 
+Sadaļā obligāti jāiekļauj. 
+ Novērtējums par atbilstību vai n eatbilstību 3NF, pamatojot to ar konkrētiem 
+piemēriem no datu bāzes struktūras (lauku nosaukumi, vērtību raksturojums u.c.). 
+ Ja kāda tabula neatbilst 3NF, jānorāda, kāpēc tā ir izveidota šādā formā. 
+Piemēram, ja tabulā User ir lauks Loma, kas teorētiski bū tu jāizdala atsevišķā 
+tabulā ar saiti “viena loma — vairāki lietotāji”, bet tas nav darīts, jāpamato šādas 
+struktūras izvēle (piem., veiktspējas apsvērumu vai projekta mēroga dēļ). 
+ Jāsniedz ieteikumi optimizācijai, norādot, kādas izmaiņas būtu vēlams ievie st 
+nākotnē, lai uzlabotu datu glabāšanas struktūru, piemēram, tabulu sadalīšana, 
+jaunu tabulu ieviešana, nevajadzīgu lauku izņemšana, atkārtotas informācijas 
+novēršana. 
+2.6.2.  Drošības mehānismi un piekļuves kontrole 
+2.6.2.1. Lietotāju autentifikācija 
+Sadaļā jāapraksta, kā sistēmā ir ieviests lietotāju autentifikācijas process, nodrošinot piekļuves 
+tiesību kontroli un datu drošību. Jāizskaidro izmantotais autentifikācijas mehānisms – kā lietotājs 
+ievada e-pasta adresi un paroli, kā sistēma pārbauda datus datu bāzē un piešķir piekļuvi.  
+Jāapraksta, kā tiek veikta lietotāja datu pārbaude, tostarp ievadīto datu validācija gan klienta, gan 
+servera pusē. Jānorāda, kādā veidā paroles tiek saglabātas datu bāzē (piemēram, ar hash algoritmu 
+bcrypt, SHA-256 vai Argon2) un jāsniedz pamatojums izvēlētajai metodei.  
+Svarīgi aprakstīt arī reģistrācijas un pieslēgšanās funkcionalitāti, lomu pārvaldību un piekļuves 
+kontroli atkarībā no lietotāja lomas (viesis, reģistrēts lietotājs, administrators). Lai sadaļa būtu vizuāli 
+pievilcīgāka, tajā var ievietot reģistrācijas un pieslēgšanās logu ekrānuzņēmumus. Tāpat var izstrādāt 
+un aprakstīt testēšanas scenārijus, piemēram, lai pārbaudītu, ka ar nepareizu paroli sistēmā ielogoties 
+nav iespējams (paraugu sk.10.pielikumā). 
+2.6.2.2. Autorizācija un piekļuves tiesību pārvaldība 
+Sadaļā jāapraksta, kā sistēmā ir ieviesta autorizācija un kā tiek pārvaldītas lietotāju piekļuves 
+tiesības atkarībā no to lomām. Jāizskaidro, kā pēc veiksmīgas autentifikācijas sistēma nosaka lietotāja 
+lomu (piemēram, viesis, reģistrēts lietotājs, administrators) un kā šī loma ietekmē pieejamās funkcijas 
+un datu redzamību. 
+--- page 9 ---
+13 
+ 
+Jānorāda, kuras darbības ir atļautas un kuras liegts veikt katrai lomai, piemēram, viesis var tikai 
+skatīt saturu, reģistrēts lietotājs var pievienot un rediģēt savus ierakstus, bet administrators var 
+pārvaldīt visu sistēmas saturu un lietotājus. Svarīgi aprakstīt arī piekļuves ierobežošanas mehānismus, 
+kas nodrošina, ka lietotājs nevar piekļūt datiem vai funkcijām, kas nav paredzētas viņa lomai, pat ja 
+viņš mēģina to darīt tieši, ievadot saites vai manipulējot ar vaicājumiem. 
+Sadaļā var pievienot piemērus no sistēmas darbības, piemēram, ekrānuzņēmumus, kuros 
+redzams, kā atšķiras saskarne atkarībā no lietotāja lomas. 
+ 
+2.7. Sistēmas vienību darbības testēšana 
+Šajā sadaļā jāapraksta sistēmas vienību darbības testēšanas process un rezultāti, lai pārliecinātos par 
+datu bāzes un tīmekļa vietnes savstarpējo integrāciju, kā arī  noteikto prasību izpildi. Testēšana tiek veikta 
+galvenajām funkcionalitātēm, kas ir būtiskas sistēmas mērķa sasniegšanai. Obligāti jāiekļauj jauna ieraksta 
+veidošanas pārbaude datu bāzē, izmantojot tīmekļa vietnē izstrādātu ievades formu, kā arī vēl divu nozīmīgu 
+funkcionalitāšu testēšana (piemēram, rezervācijas izveide, pasūtījuma apstiprināšana, grāmatas meklēšana 
+vai vērtēšana). 
+Katram testam jāapraksta darbības princips, norādot, kāpēc tiek veikta konkrētā pārbaude un kāds ir 
+sagaidāmais rezultāts. Ja tas palīdz labāk izprast testēšanas procesu, aprakstam var pievienot arī programmas 
+koda fragmentus, kas demonstrē datu validācijas vai apstrādes darbību. 
+Testējot jauna ieraksta veidošanu, katram ievades laukam (piemēram, “Nosaukums”, “Autors” vai 
+“Izdošanas gads”) jāizstrādā atsevišķa testēšanas datu kopa. Tā ietver gan derīgus, gan nederīgus ievaddatus, 
+lai pārbaudītu sistēmas reakciju uz noteiktajiem ierobežojumiem un pārliecinātos, ka tie darbojas korekti. Kā 
+piemērs zemāk attēlota testēšanas datu kopa tālruņa numura laukam. 
+ 
+6.att. Testēšana datu kopa tālruņa numura laukam 
+Atsevišķu galveno funkcionalitāšu pārbaudei testēšanas apraksts jāveido detalizētāk, izmantojot 
+strukturētu paraugu, kurā skaidri atspoguļots funkcijas ievads, ievaddati, apstrādes gaita, izvaddati un kļūdu 
+paziņojumi (pilns paraugs atrodams 11. pielikumā). 
+Sadaļa obligāti jāpapildina ar ekrānattēliem, kas apliecina, ka darbības tika veiktas reālā sistēmā. Tas 
+nodrošina, ka testēšanas rezultāti nav tikai teorētiski, bet balstīti praktiskā darbībā. 
+  
+
+--- page 10 ---
+14 
+ 
+2.8. Nobeigums 
+Nobeigumā jāietver noslēguma darba kopsavilkums, secinājumi un ieteikumi.  
+ Kopsavilkumā īsi apkopojams paveiktais darbs, uzsverot galvenos rezultātus un to nozīmīgumu. 
+ Secinājumos jānorāda, vai darba mērķis ir sasniegts un visi izvirzītie uzdevumi ir izpildīti; ja kāds 
+no plānotajiem risinājumiem netika ieviests vai iecere netika realizēta pilnā apjomā, jāpaskaidro 
+šādas situācijas iemesli (piemēram, laika, resursu vai tehnisko ierobežojumu dēļ) un jāizvērtē, kā 
+tas ietekmē sistēmas lietojamību.  
+ Ieteikumu daļā jāformulē praktiski un pamatoti priekšlikumi turpmākai sistēmas attīstībai, 
+trūkumu novēršanai un funkcionalitātes pilnveidošanai. Tāpat var akcentēt iespējas izmantot 
+darbā iegūto pozitīvo pieredzi līdzīgu projektu izstrādē nākotnē.  
+2.9. Informācijas avoti 
+Šajā sadaļā jāuzskaita visi informācijas resursi, kas izmantoti noslēguma darba izstrādes gaitā – grāmatas, 
+zinātniskie un populārzinātniskie raksti, mācību materiāli, interneta resursi, intervijas, audio un videomateriāli, kā 
+arī citi avoti, uz kuriem ir atsauces darba tekstā.  
+2.10. Pielikumi 
+Pielikumos pievieno materiālus, kas ir pārāk detalizēti vai apjomīgi, lai tos iekļautu pamattekstā, bet kas 
+nepieciešami, lai pilnībā izprastu un novērtētu izstrādāto darbu. Tie var būt dažādas diagrammas (UML klašu 
+diagrammas, ER diagrammas, lietošanas gadījumu diagrammas u. c.), datu bāzes shēmas, tabulu vai datu izdruku 
+ekrānuzņēmumi (screenshot), testēšanas scenāriji un rezultāti. 
+  
+--- page 11 ---
+15 
+ 
+PIELIKUMI 
+1. pielikums 
+Titullapas paraugs 
+RĪGAS VALSTS TEHNIKUMS 
+DATORIKAS NODAĻA 
+Izglītības programma: Programmēšana 
+ 
+ 
+ 
+ 
+Moduļa “Datu bāzu programmēšana” 
+NOSLĒGUMA DARBS 
+ 
+Tēma: Internetveikala datu uzskaites un apstrādes sistēma 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Rīga 
+2025./2026. m.g. 
+ 
+ 
+--- page 12 ---
+16 
+2. pielikums 
+Satura rādītāja piemērs 
+SATURS 
+IEVADS ..................................................................................................................................  3 
+1. UZDEVUMA NOSTĀDNE  .............................................................................................  4 
+ 1.1. Sistēmas lietotāji un to mijiedarbība ar sistēmu ..........................................................  5 
+ 1.2. Uzdevuma risināšanas līdzekļu izvēles pamatojums ...................................................  6 
+2. DATU MODELĒŠANA  ...................................................................................................  8 
+ 2.1. Objektorientēts konceptuālais datu modelis  ...............................................................  8 
+  2.1.1. Klašu funkcijas un nozīme sistēmā ....................................................................  8 
+  2.1.2. Klašu savstarpējās attiecības ............................................................................  9 
+ 2.2. Entītiju relāciju datu modelis .......................................................................................  10 
+3. DATU BĀZES IZSTRĀDE UN DROŠĪBAS NODROŠINĀŠANA ..............................  12 
+ 3.1. Datu glabāšanas fiziskā struktūra ................................................................................  12 
+  3.1.1. Datu integritātes nodrošināšana .......................................................................  15 
+  3.1.2. Datu bāzes atbilstības pamatojums  3NF prasībām ..........................................  16 
+ 3.2. Drošības mehānismi un piekļuves kontrole .................................................................  17 
+  3.2.1. Lietotāju autentifikācija .....................................................................................  17 
+  3.2.2. Autorizācija un piekļuves tiesību pārvaldība ....................................................  18 
+4. SISTĒMAS VIENĪBU DARBĪBAS TESTĒŠANA ........................................................  20 
+ 4.1. Jauna ieraksta izveide datubāzes tabulā par konkrētu grāmatu ...................................  20 
+ 4.2. Lietotāju izveidoto rakstu vērtēšana ............................................................................  22 
+ 4.3. Meklēšana pēc vairākiem kritērijiem (Advanced filter) ..............................................  26 
+NOBEIGUMS  .......................................................................................................................  30 
+INFORMĀCIJAS AVOTI  ...................................................................................................  31 
+PIELIKUMI  ..........................................................................................................................  32 
+ 1.pielikums. Lietošanas gadījumu diagramma ...................................................................  32 
+ 2.pielikums. Klašu diagramma ...........................................................................................  33 
+ 3.pielikums. ER diagramma ................................................................................................  34 
+ 4.pielikums. Datu bāzes tabulu shēma ................................................................................  35 
+--- page 13 ---
+17 
+3. pielikums 
+Sistēmas lietotāju un to uzvedības apraksta piemērs 
+1.1. Sistēmas lietotāji un to mijiedarbība ar sistēmu 
+Izstrādātajā sistēmā ir definētas divas lietotāju lomas – viesis un reģistrēts lietotājs. 
+Katram no tām ir pieejama atšķirīga funkcionalitāte un darbības. 
+Viesis ir nereģistrēts lietotājs, kura vienīgā iespēja ir reģistrēties, lai iegūtu piekļuvi 
+pilnai sistēmas funkcionalitātei. Reģistrēšanās ietver lietotāja datu (piemēram, e -pasta un 
+paroles) ievadi, kā arī automātisku ievades lauku pārbaudi. Papildus viesis va r izvēlēties 
+izmantot funkciju "ģenerēt paroli", ja nevēlas pats to izdomāt. Pēc veiksmīgas reģistrācijas 
+viesis kļūst par reģistrētu lietotāju un iegūst piekļuvi plašākām iespējām. 
+Reģistrēts lietotājs  sistēmā var veikt vairākas darbības, un katrai no tām  ir noteikta 
+mijiedarbības secība. Piemēram, ja lietotājs vēlas meklēt grāmatu, viņš sāk ar atslēgvārda 
+ievadi un pēc izvēles izmanto filtrēšanas opcijas (piemēram, pēc autora, žanra vai gada), kas 
+ir paplašinājums (extend) pamatdarbībai. Atrodot interesēj ošo grāmatu, viņš to var lasīt vai 
+novērtēt, kur vērtējuma piešķiršana obligāti ietver 5 ballu skalas izvēli (include). 
+Lietotājs var arī pārvaldīt savu profilu, kur papildu iespēja ir mainīt e -pastu vai paroli 
+(extend). Ja lietotājs vēlas dzēst profilu, s istēma vienmēr pieprasa apstiprinājumu (include), 
+lai izvairītos no nejaušas dzēšanas. Tādējādi katra lietotāja darbība sistēmā sastāv no 
+loģiskām soļu ķēdēm, kurās dažas darbības ir obligātas, bet citas pieejamas pēc vajadzības. 
+1. pielikumā ir redzama li etošanas gadījumu (Use Case) diagramma, kas parāda abu 
+lietotāju lomu mijiedarbību ar sistēmas funkcionalitāti, kā arī atkarības starp dažādiem 
+lietošanas gadījumiem (include un extend). 
+ 
+  
+--- page 14 ---
+18 
+4. pielikums 
+Lietošanas gadījumu diagrammas piemērs 
+ 
+  
+
+--- page 15 ---
+19 
+5. pielikums 
+Objektorientētā konceptuālā datu modeļa apraksta piemērs 
+2. DATU MODELĒŠANA 
+Šajā sadaļā ir aprakstīta sistēmas datu modelēšana , kas ietver divus galvenos posmus.  
+Vispirms tiek izveidots konceptuālais datu modelis  klašu diagrammas veidā, lai attēlotu sistēmas 
+galvenos objektus, to īpašības un savstarpējās attiecības konceptuālā līmenī.  
+Pēc tam tiek izstrādāts loģiskais datu modelis ER diagrammas formā, kas detalizētāk atspoguļo datu 
+struktūru un sagatavo to realizācijai datu bāzē. 
+2.1. Objektorientēts konceptuālais datu modelis 
+Sistēmā informācija tiek organizēta, izmantojot objektorientētu pieeju, kur katra klase pārstāv 
+konkrētu sistēmas objektu ar saviem datiem (atribūtiem) un darbībām (metodēm). 2.pielikumā dotajā 
+diagrammā redzams, kā klases savstarpēji saistītas ar asociācijām, kompozīcijām un agregācijām, kā 
+arī kādu funkcionalitāti tās nodrošina. 
+Sistēmu veido 12 savstarpēji saistītas klases, kas nodrošina lietotāju, satura, žanru, vērtējumu, 
+grāmatzīmju un citu funkcionālo elementu pārvaldību. 
+2.1.1. Klašu funkcijas un nozīme sistēmā 
+Lietotāji – pamatklase, kas satur informāciju par lietotāju (segvārds, e -pasts, parole, loma, 
+biogrāfija) un nodrošina pamatfunkcijas, piemēram, pieteikšanos, datu atjaunošanu un konta dzēšanu. 
+Tā ir centrālā klase, jo gandrīz visas pārējās sistēmas darbības ir saistītas ar lietotājiem. 
+Reģistrācija – nodrošina jauna lietotāja izveidi sistēmā. Metodes paredzētas datu validācijai, 
+konta izveidei un informācijas saglabāšanai. Šī klase ir saistīta ar Lietotāji, jo reģistrācijas process ir 
+neatņemama lietotāju pārvaldības sastāvdaļa. 
+...... 
+2.1.2. Klašu savstarpējās attiecības 
+Lietotāji ir agregācijā ar Reģistrācija – lietotājs var būt izveidots tikai caur reģistrācijas procesu, 
+taču reģistrācijas loģika var pastāvēt atsevišķi. 
+Lietotāja stāsts ir kompozīcijā ar Lietotāja stāsta nodaļas  – nodaļas pastāv tikai kā daļa no 
+konkrēta stāsta. 
+.... 
+Klašu diagrammā redzams, ka pagaidām nav izmantots mantojums. Nākotnē, lai izvairītos no 
+koda dublēšanās un vienkāršotu struktūru, būtu lietderīgi izv eidot, piemēram, “Grāmata” kā bāzes 
+klasi ar kopīgajiem atribūtiem un metodēm, ko varētu mantot gan “Lietotāja stāsts”, gan “Klasiskā 
+grāmata”, kā arī izveidot kopīgu bāzes klasi vērtējumu klasēm (“Lietotāja stāsta vērtējums” un 
+“Klasiskās grāmatas vērtējums”). 
+  
+--- page 16 ---
+20 
+6. pielikums 
+Klašu diagrammas piemērs 
+
+--- page 17 ---
+21 
+7. pielikums 
+ER diagrammas piemērs 
+ 
+
+--- page 18 ---
+22 
+8. pielikums 
+ 
+Datu glabāšanas struktūras apraksta piemērs 
+ 
+3. DATU BĀZES IZSTRĀDE UN DROŠĪBAS NODROŠINĀŠANA 
+3.1. Datu glabāšanas fiziskā struktūra 
+Datu bāze sastāv no 13 tabulām, kas satur informāciju par lietotājiem, klasiskām grāmatām, 
+lietotāju stāstiem, lietotāju vērtējumiem, grāmatzīmēm un žanriem. Datubāzes projektēšanas procesā, 
+lai tabulas atbilstu realizējamiem uzdevumiem un tiktu novērsta datu dublēšanās, tiek veikta to 
+optimizēšana jeb normalizācija. 4. pielikumā ir parādīta datu bāzes struktūra, kas demonstrē datu kolonu 
+izvietojumu pa tabulām, kā arī tabulu savstarpējo saistību. 
+Tabulā "users" tiek glabāta in formācija par sistēmā reģistrētajiem lietotājiem. Tajā ir unikāls 
+lietotāja ID, e -pasta adrese, segvārds, parole, lietotāja loma sistēmā (pēc noklusējuma ir parastais 
+lietotājs), papildu lauks īsai biogrāfijai un ieraksta izveides un atjaunināšanas laiks. 
+3.1. tabula 
+Tabulas „users” struktūra 
+Nr. Nosaukums Tips Garums Piezīme 
+1  id bigint  lietotāja kods, primārā atslēga 
+2  nickname varchar 50 lietotāja epasta adrese, formāts test@test.com 
+3  email varchar 50 reģistrētā lietotāja segvārds 
+4  password varchar 50 reģistrētā lietotāja šifrēta parole 
+5  role enum('admin', 
+'user')  Reģistrēta lietotāja loma. Pēc noklusējuma šis 
+ir parasts lietotājs bez privilēģijām. 
+6  ….    
+ 
+CREATE TABLE IF NOT EXISTS `users` ( 
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, 
+  `email` varchar(50) NOT NULL, 
+  `nickname` varchar(50) NOT NULL, 
+  `password` varchar(50) NOT NULL, 
+  `role` enum('admin','user') NOT NULL DEFAULT 'user', 
+…. 
+  PRIMARY KEY (`id`), 
+  UNIQUE KEY `users_email_unique` (`email`), 
+  UNIQUE KEY `users_nickname_unique` (`nickname`) 
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 
+COLLATE=utf8mb4_unicode_ci; 
+………. 
+3.1.1. Datu integritātes nodrošināšana 
+--- page 19 ---
+23 
+9. pielikums 
+Datu bāzes tabulu saišu shēmas piemērs
+ 
+
+--- page 20 ---
+24 
+10. pielikums 
+Lietotāju autentifikācijas – reģistrācijas procesa funkcionālo testu piemērs 
+Testa 
+ID 
+Testa 
+nosaukums 
+Testa 
+apraksts Testa soļi Paredzētais 
+rezultāts Testa rezultāts Secinājums 
+1 
+Reģistrācija, 
+neaizpildot 
+visus laukus 
+Pārbauda, 
+vai vietne 
+nereģistrē 
+lietotāju, ja 
+reģistrācijas 
+laikā kāds 
+lauks ir 
+tukšs 
+1. Noklikšķiniet uz 
+pogas 
+"Reģistrācija". 
+2. Aizpildiet visus 
+laukus, izņemot 
+vienu. 
+3. Noklikšķiniet uz 
+pogas "Reģistrēties". 
+Parādās kļūdas 
+ziņojums, kas 
+norāda, ka lauks 
+ir jāaizpilda. 
+Vietnē tiek 
+parādīts 
+brīdinājums, ka 
+ir jāaizpilda 
+lauks. 
+Reģistrācija 
+neizdevās. 
+Tests ir 
+veiksmīgs 
+2 
+Reģistrēties ar 
+esošu 
+segvārdu/e-
+pastu 
+Pārbauda, 
+vai vietne 
+nereģistrē 
+lietotāju, ja 
+sistēmā jau 
+ir lietotājs 
+ar tādu pašu 
+segvārdu/e-
+pastu. 
+1. Noklikšķiniet uz 
+pogas 
+"Reģistrācija". 
+2. Aizpildiet laukus, 
+norādot esošu 
+vērtību e-pasta vai 
+segvārda laukā. 
+3. Noklikšķiniet uz 
+pogas "Reģistrēties". 
+Parādās kļūdas 
+ziņojums, kas 
+norāda, ka paroles 
+nesakrīt. 
+Vietnē tiek 
+parādīts 
+brīdinājums, ka 
+šāds e-pasts vai 
+segvārds jau ir 
+aizņemts. 
+Reģistrācija 
+neizdevās. 
+Tests ir 
+veiksmīgs 
+3 
+Reģistrācija ar 
+dažādām 
+parolēm 
+Pārbauda, 
+vai vietne 
+nereģistrē 
+lietotāju, ja 
+viņš nav 
+apstiprinājis 
+paroli 
+1. Noklikšķiniet uz 
+pogas 
+"Reģistrācija". 
+2. Aizpildiet visus 
+laukus, paroles 
+apstiprināšanas 
+laukā ievadiet citu 
+paroli. 
+3. Noklikšķiniet uz 
+pogas "Reģistrēties". 
+Parādās kļūdas 
+ziņojums, kas 
+norāda, ka faila 
+formāts nav 
+derīgs. 
+Vietnē tiek 
+parādīts 
+brīdinājums, ka 
+parolēm ir 
+jāsakrīt. 
+Reģistrācija 
+neizdevās. 
+Tests ir 
+veiksmīgs 
+--- page 21 ---
+25 
+11. pielikums 
+Meklēšana pēc vairākiem kritērijiem (Advanced filter) – testēšanas 
+detalizēta apraksta piemērs 
+Ievads 
+Funkcija paredzēta, lai lietotājs varētu meklēt grāmatu pēc noteiktiem kritērijiem: autora, 
+izdošanas gada un lietotāju vērtējuma. 
+Ievaddati 
+1. Autors – obligāts lauks; jāievada autora vārds un uzvārds (piemēram, “Arturs Konans 
+Doils”).  
+2. Izdošanas gads – obligāts lauks; jānorāda intervāls (piemēram, “1925–1928”).  
+3. Lietotāju vērtējums – obligāts lauks; jānorāda minimālais vērtējums (piemēram, “≥4”). 
+Apstrāde 
+1. Sistēma salīdzina ievadītos kritērijus ar datu bāzē esošajām grāmatām.  
+2. Atlasīt tikai tās grāmatas, kas atbilst visiem trim kritērijiem. 
+Izvaddati 
+1. Tiek parādīts grāmatu saraksts, kas atbilst izvēlētajiem kritērijiem.  
+2. Ja neviena grāmata neatbilst kritērijiem, tiek parādīts informatīvs paziņojums. 
+Kļūdas paziņojumi 
+Ja ievaddati nav korekti (piemēram, gads nav skaitlis vai vērtējums ārpus pieļaujamā 
+diapazona), tiek parādīts kļūdas ziņojums. 
+Izsaucamās prasības 
+Meklēšanu var veikt jebkurš sistēmas lietotājs, kuram ir piekļuve grāmatu katalogam. 
+ 
